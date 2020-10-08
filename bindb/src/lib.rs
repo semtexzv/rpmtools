@@ -1,6 +1,5 @@
-#![feature(slice_fill)]
 pub use sled;
-use serde::{Serialize, de::DeserializeOwned};
+use serde::{Serialize, Deserialize, de::DeserializeOwned};
 use std::ops::{Deref, Range};
 use bincode::Options;
 use bincode::config::{BigEndian, LittleEndian, FixintEncoding};
@@ -173,5 +172,5 @@ fn test_order() {
     assert!(db.tput(&Key(ab.clone(), abc.clone()), &Key(ab.clone(), abc.clone())).is_none());
 
     let all = db.tscan::<Key>();
-    panic!("{:?}", all);
+    //panic!("{:?}", all);
 }

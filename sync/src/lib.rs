@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+
 mod prelude;
 mod magic;
 
@@ -8,7 +9,7 @@ use rpmrepo::{
     repomd::{RepoMD, Type},
     primary::{Primary, Package},
     updateinfo::Update,
-    modules::Chunk
+    modules::Chunk,
 };
 
 const PACKAGE_PATH: &[&str] = &["package"];
@@ -32,20 +33,26 @@ impl Syncer {
         }
     }
 
-    pub fn sync_md(&self, target: &mut dyn SyncTarget) {
-        let resp = ureq::get(&format!("{}repodata/repomd.xml", &self.base))
+    pub fn sync_md(&self, target: &mut dyn SyncTarget) -> Result<()> {
+        let url = format!("{}repodata/repomd.xml", &self.base);
+        let resp = ureq::get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
         if !resp.ok() {
-            panic!("Error getting repo: {:?}", resp.synthetic_error())
+            if let Some(err) = resp.synthetic_error() {
+                // TODO: https://github.com/algesten/ureq/issues/126
+                return Err(Box::new(ErrorImpl::Req(url, err.to_string())));
+            }
         }
         let reader = resp.into_reader();
         let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
         target.on_metadata(self, md);
+
+        Ok(())
     }
 
-    pub fn sync_primary_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) {
+    pub fn sync_primary_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading primary");
         let mut action = |p| {
             target.on_package(p);
@@ -54,10 +61,13 @@ impl Syncer {
         let action = crate::magic::ItemAction::<Package, ()>::new(&mut action);
         let seed = crate::magic::SeedField::new(PACKAGE_PATH, action);
 
-        self.sync_xml_streaming(md, Type::Primary, seed).unwrap();
+        if let None = self.sync_xml_streaming(md, Type::Primary, seed)? {
+            eprintln!("Missing primary")
+        }
+        Ok(())
     }
 
-    pub fn sync_updateinfo_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) {
+    pub fn sync_updateinfo_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading updateinfo");
         let mut action = |p| {
             target.on_update(p);
@@ -66,23 +76,29 @@ impl Syncer {
         let action = crate::magic::ItemAction::<Update, ()>::new(&mut action);
         let seed = crate::magic::SeedField::new(UPDATE_PATH, action);
 
-        if let None = self.sync_xml_streaming(md, Type::UpdateInfo, seed) {
+        if let None = self.sync_xml_streaming(md, Type::UpdateInfo, seed)? {
             eprintln!("Missing updateinfo")
         }
+
+        Ok(())
     }
 
-    pub fn sync_modules(&self, target: &mut dyn SyncTarget, md: &RepoMD) {
+    pub fn sync_modules(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading modules");
         let data = if let Some(data) = md.find_item(Type::Modules) {
             data
-        } else { return; };
+        } else { return Err(ErrorImpl::TypeNotFound(Type::Modules).boxed()); };
 
-        let resp = ureq::get(&format!("{}{}", &self.base, data.location.href))
+        let url = format!("{}{}", &self.base, data.location.href);
+        let resp = ureq::get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
         if !resp.ok() {
-            panic!("Error getting modules")
+            if let Some(err) = resp.synthetic_error() {
+                // TODO: https://github.com/algesten/ureq/issues/126
+                return Err(Box::new(ErrorImpl::Req(url, err.to_string())));
+            }
         }
 
         let mut data = String::new();
@@ -92,15 +108,17 @@ impl Syncer {
         for m in modules {
             target.on_module_chunk(m);
         }
+
+        Ok(())
     }
 
 
-    fn sync_xml_streaming<'a, T: DeserializeSeed<'a>>(&self, md: &RepoMD, typ: Type, seed: T) -> Option<T::Value> {
+    fn sync_xml_streaming<'a, T: DeserializeSeed<'a>>(&self, md: &RepoMD, typ: Type, seed: T) -> Result<Option<T::Value>> {
         use xml::de::Deserializer;
 
         let data = if let Some(data) = md.find_item(typ.clone()) {
             data
-        } else { return None; };
+        } else { return return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());; };
 
         let url = format!("{}{}", &self.base, data.location.href);
         println!("URL: {:?}", url);
@@ -115,9 +133,8 @@ impl Syncer {
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
         let mut de = Deserializer::from_reader(BufReader::new(decomp));
 
-        Some(DeserializeSeed::deserialize(seed, &mut de).unwrap())
+        Ok(Some(DeserializeSeed::deserialize(seed, &mut de).map_err(|e| ErrorImpl::Xml(e))?))
     }
-
 }
 
 pub trait SyncTarget {
@@ -137,9 +154,20 @@ fn test_sync() {
         fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD) {
             println!("{:?}", md);
             if self.last_rev < md.revision {
-                syncer.sync_primary_streaming(self, &md);
-                syncer.sync_updateinfo_streaming(self, &md);
-                syncer.sync_modules(self, &md);
+                syncer.sync_primary_streaming(self, &md).unwrap();
+                if let Err(err) = syncer.sync_updateinfo_streaming(self, &md) {
+                    if let ErrorImpl::TypeNotFound(typ) = *err {
+                        println!("Did not find : {:?}", typ);
+                    }
+
+                };
+
+                if let Err(err) = syncer.sync_modules(self, &md) {
+                    if let ErrorImpl::TypeNotFound(typ) = *err {
+                        println!("Did not find : {:?}", typ);
+                    }
+
+                };;
             }
         }
 
@@ -162,5 +190,5 @@ fn test_sync() {
     let syncer = Syncer::new(cert, "https://dl.yarnpkg.com/rpm/");
     syncer.sync_md(&mut DummyTarget {
         last_rev: 0
-    })
+    }).unwrap()
 }
