@@ -1,6 +1,6 @@
 [package]
 name = "rpmrepo"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
 description = "Crate containing definitions for parsing yum repositry data structures"
@@ -15,7 +15,7 @@ license = "MIT"
 version = "1"
 features = ["derive"]
 
-[dependencies.xml]
+[dev-ependencies.xml]
 package = "quick-xml"
 version = "0.17.1"
 default-features = false
