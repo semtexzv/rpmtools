@@ -1,5 +1,8 @@
 ## BinDB
 
+- [Crates.io](https://crates.io/crates/bindb)
+- [Documentation](https://docs.rs/bindb) 
+
 Simple database built on [sled](https://docs.rs/sled). Uses [bincode](https://github.com/servo/bincode)
 as an internal  format and provides:
 
