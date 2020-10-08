@@ -1,4 +1,4 @@
-#![allow(unused_import)]
+#![allow(unused_imports)]
 mod prelude;
 mod magic;
 
@@ -112,7 +112,7 @@ impl Syncer {
             panic!("Error getting {:?}", typ)
         }
 
-        let (decomp, format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
+        let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
         let mut de = Deserializer::from_reader(BufReader::new(decomp));
 
         Some(DeserializeSeed::deserialize(seed, &mut de).unwrap())

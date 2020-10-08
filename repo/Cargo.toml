@@ -15,7 +15,7 @@ license = "MIT"
 version = "1"
 features = ["derive"]
 
-[dev-ependencies.xml]
+[dev-dependencies.xml]
 package = "quick-xml"
 version = "0.17.1"
 default-features = false
