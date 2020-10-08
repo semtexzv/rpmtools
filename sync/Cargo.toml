@@ -1,0 +1,47 @@
+[package]
+name = "rpmsync"
+version = "0.1.0"
+authors = ["Michal Hornicky <mhornick@redhat.com>"]
+edition = "2018"
+description = "Library to perform fast & lightweight syncing of RPM repositories"
+repository = "https://github.com/semtexzv/rpmtools.git"
+homepage = "https://github.com/semtexzv/rpmtools.git"
+documentation = "https://docs.rs/rpmsync"
+keywords = ["yum", "rpm", "repository"]
+license = "MIT"
+
+[dependencies.serde]
+version = "*"
+features = ["derive"]
+
+[dependencies.xml]
+package = "quick-xml"
+version = "0.17.1"
+default-features = false
+features = ["serialize"]
+
+[dependencies.syaml]
+package = "serde_yaml"
+version = "0.8"
+git = "https://github.com/semtexzv/serde-yaml"
+branch = "multidoc"
+default-features = false
+
+[dependencies.rpmrepo]
+version = "0.0.1"
+path = "../repo"
+
+[dependencies.ureq]
+version = "*"
+default-features = false
+features = ["tls"]
+
+[dependencies.rustls]
+version = "*"
+default-features = false
+
+[dependencies.niffler]
+version = "*"
+features = ["bz2", "gz", "lzma"]
+
+[dependencies]

@@ -3,15 +3,18 @@ use crate::repomd::{Checksum, Location};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Primary {
-    #[serde(default)]
+
+    #[serde(rename = "packages")]
+    pub package_count: usize,
     #[serde(rename = "package")]
-    packages: Vec<Package>,
+    pub packages: Vec<Package>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Package {
     #[serde(rename = "type")]
     pub typ: String,
+
     pub name: String,
     pub arch: String,
     pub version: PackageVersion,
@@ -26,6 +29,8 @@ pub struct Package {
     pub location: Location,
     // TODO: Extensible
     pub format: Option<Format>,
+
+
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialOrd, Ord, Eq, PartialEq)]
@@ -55,4 +60,13 @@ pub struct PackageSize {
 pub struct Format {
     #[serde(rename = "sourcerpm")]
     pub source: String
+}
+
+
+#[test]
+fn test_parse_primary() {
+    let data = include_str!("../../testdata/yarm-primary.xml");
+    let primary = xml::de::from_str::<Primary>(data).unwrap();
+    assert_eq!(primary.packages.len(), 51);
+
 }

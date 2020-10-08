@@ -7,6 +7,12 @@ pub struct RepoMD {
     pub data: Vec<RepoMDItem>
 }
 
+impl RepoMD {
+    pub fn find_item(&self, typ : Type) -> Option<&RepoMDItem> {
+        self.data.iter().find(|it| it.typ == typ)
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RepoMDItem {
     #[serde(rename = "type")]

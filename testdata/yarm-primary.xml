@@ -1,0 +1,2696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://linux.duke.edu/metadata/common" xmlns:rpm="http://linux.duke.edu/metadata/rpm" packages="51">
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.15.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">4e439856e0af00dfd0af403bafa6587ee00aab6ae29cb9fd7c57b00688b0eb4d</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1476198928"/>
+  <size package="3002859" installed="3002859" archive="11163828"/>
+<location href="yarn-0.15.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>dan.cx</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.15.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="5504" end="431057"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.15.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mime</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/agent-base/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/agent-base/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/node-uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.16.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">d34148ba28bce6c506592c5764aecc70504f8fdd0177a96b927f5f8054a257ea</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1476806350"/>
+  <size package="2677007" installed="2677007" archive="9640596"/>
+<location href="yarn-0.16.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box90.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.16.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1392" end="341182"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.16.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/acorn</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/acorn</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/generate-identifier-regex.js</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/update_authors.sh</file>
+    <file>/usr/share/yarn/node_modules/acorn/src/bin/acorn.js</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/node-uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.16.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6b355c83142fb3ecbefbee0f46312f8e981d6635eb4eafc0a26f7482dea9c20c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1476879100"/>
+  <size package="2677048" installed="2677048" archive="9640596"/>
+<location href="yarn-0.16.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box1792.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.16.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1392" end="341182"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.16.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/acorn</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/acorn</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/generate-identifier-regex.js</file>
+    <file>/usr/share/yarn/node_modules/acorn/bin/update_authors.sh</file>
+    <file>/usr/share/yarn/node_modules/acorn/src/bin/acorn.js</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/node-uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.17.10" rel="1"/>
+  <checksum type="sha256" pkgid="YES">ddd0c96cb11a2f71d74311a2b2ea6d87182290159ecb7299ea2bbbccc8f68df8</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1480597559"/>
+  <size package="3590402" installed="3590402" archive="13755388"/>
+<location href="yarn-0.17.10-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box922.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.17.10-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="438887"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.17.10" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.17.6" rel="1"/>
+  <checksum type="sha256" pkgid="YES">73a0bf35f374ba31fe8d1a8c042ba5956a8591182c91e1646b01b7e82b5268ec</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1479503449"/>
+  <size package="3587973" installed="3587973" archive="13747124"/>
+<location href="yarn-0.17.6-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box1880.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.17.6-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1392" end="438483"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.17.6" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.17.8" rel="1"/>
+  <checksum type="sha256" pkgid="YES">a2500511dcefe7bfe64dfd7cfac768f6973a35f49fb4ea7d3127fdd016678343</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1479735748"/>
+  <size package="3588334" installed="3588334" archive="13748160"/>
+<location href="yarn-0.17.8-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box1245.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.17.8-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="438531"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.17.8" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.17.9" rel="1"/>
+  <checksum type="sha256" pkgid="YES">d9fbb7b745de9cd835685e98e3b1615b7d20c5c509177c696a53febbf128d896</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1480086656"/>
+  <size package="3589969" installed="3589969" archive="13754496"/>
+<location href="yarn-0.17.9-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box901.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.17.9-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="438619"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.17.9" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.18.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">056eac36a0f4abd1638d69ec38781ad09311ae1d8276305e4b82388c4747b17c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1482000615" build="1481977782"/>
+  <size package="3593330" installed="3593330" archive="13759656"/>
+<location href="yarn-0.18.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box1228.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.18.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="438422"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.18.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.19.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">fa9a23ab71fdb4f52277659f3cc36c3074b74ea690cff1c083aa487c582c322c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1484611831" build="1484610255"/>
+  <size package="3451448" installed="3451448" archive="13327256"/>
+<location href="yarn-0.19.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box673.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.19.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="394129"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.19.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/gauge/node_modules/.bin/supports-color</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.20.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6211072ec29cffa5bcc74c96dcc15ea927b05a23fd50815712c70fc9ce06554a</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1487133623" build="1487104852"/>
+  <size package="3458003" installed="3458003" archive="13349176"/>
+<location href="yarn-0.20.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box297.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.20.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="390916"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.20.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.21.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">fc223e179215fa8b2d225aaa136a259cfdbf6e32cd0c2dd35fde8db6d1593a19</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1488226518" build="1488209828"/>
+  <size package="3363931" installed="3363931" archive="13105428"/>
+<location href="yarn-0.21.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box95.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.21.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="388744"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.21.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/har-validator/bin/har-validator</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/har-validator</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.22.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6a7beeee8db6bbf19f471de866e18734a7940089146e434b8042a04cae8327a9</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1491492310" build="1488820525"/>
+  <size package="3873884" installed="3873884" archive="15282244"/>
+<location href="yarn-0.22.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box257.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.22.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="397113"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.22.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.23.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">af877c2fef720ac9d4bca05b439714829d91a56a85832a8fe27558f949c5171c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1492095311" build="1492016173"/>
+  <size package="3880839" installed="3880839" archive="15264572"/>
+<location href="yarn-0.23.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box824.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.23.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="400453"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.23.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.23.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">74f5cedab593ccb87dd84b328acff33e136f3b8563a12abc37a07cb26fccfb74</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1493404213" build="1493291936"/>
+  <size package="3881376" installed="3881376" archive="15269000"/>
+<location href="yarn-0.23.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box370.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.23.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="399915"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.23.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.23.4" rel="1"/>
+  <checksum type="sha256" pkgid="YES">26eee983ae34b126fec5b8a6acde438c6a2f18a5dbd39028fe8ba8616064071c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1493752514" build="1493750449"/>
+  <size package="3879213" installed="3879213" archive="15265972"/>
+<location href="yarn-0.23.4-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box275.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.23.4-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="399512"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.23.4" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/node_modules/which/bin/which</file>
+    <file>/usr/share/yarn/node_modules/uuid/bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/sshpk/bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/semver/bin/semver</file>
+    <file>/usr/share/yarn/node_modules/nopt/bin/nopt.js</file>
+    <file>/usr/share/yarn/node_modules/node-gyp/bin/node-gyp.js</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/usage.txt</file>
+    <file>/usr/share/yarn/node_modules/mkdirp/bin/cmd.js</file>
+    <file>/usr/share/yarn/node_modules/.bin/which</file>
+    <file>/usr/share/yarn/node_modules/.bin/uuid</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-verify</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-sign</file>
+    <file>/usr/share/yarn/node_modules/.bin/sshpk-conv</file>
+    <file>/usr/share/yarn/node_modules/.bin/semver</file>
+    <file>/usr/share/yarn/node_modules/.bin/rimraf</file>
+    <file>/usr/share/yarn/node_modules/.bin/nopt</file>
+    <file>/usr/share/yarn/node_modules/.bin/node-gyp</file>
+    <file>/usr/share/yarn/node_modules/.bin/mkdirp</file>
+    <file>/usr/share/yarn/node_modules/.bin/loose-envify</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp.cmd</file>
+    <file>/usr/share/yarn/bin/node-gyp-bin/node-gyp</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.24.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6c0e32c6a06b82670889051d35e1892062a783de9be6cac3e378debb20c6f740</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1494600309" build="1494599856"/>
+  <size package="775624" installed="775624" archive="3616496"/>
+<location href="yarn-0.24.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box584.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.24.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.24.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.24.4" rel="1"/>
+  <checksum type="sha256" pkgid="YES">573c5aa8b8a7f6abd52a1a4c20fa519d19c4b50ad0a94cf1391f7d0ca2056247</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1494610811" build="1494610170"/>
+  <size package="775622" installed="775622" archive="3616492"/>
+<location href="yarn-0.24.4-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box218.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.24.4-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.24.4" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.24.5" rel="1"/>
+  <checksum type="sha256" pkgid="YES">b1d53ab8ceab2d16024dc49be0f7f8a13f096101005730f3bdb28211e511f5ee</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1494875711" build="1494874254"/>
+  <size package="775621" installed="775621" archive="3616492"/>
+<location href="yarn-0.24.5-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box4102.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.24.5-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.24.5" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.24.6" rel="1"/>
+  <checksum type="sha256" pkgid="YES">eb2f7392aff67c91f6b75f755a3f0dfb555915ecee2be9ed21ed7b6b1e8257d8</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1496792408" build="1495569905"/>
+  <size package="775739" installed="775739" archive="3616928"/>
+<location href="yarn-0.24.6-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box1075.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.24.6-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.24.6" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.27.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">7e94f2c30a267b10d5afe3659f1fcf978afb21ef4056af35a8e3234e779126fd</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1498769110" build="1498702083"/>
+  <size package="812724" installed="812724" archive="3765152"/>
+<location href="yarn-0.27.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box409.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.27.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.27.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.27.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">fe4c70c8c1ffba96491caab1524e5a5d91706f629e7d38e433319d80f8c5c8cc</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1498770312" build="1498769058"/>
+  <size package="812895" installed="812895" archive="3765416"/>
+<location href="yarn-0.27.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box548.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.27.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.27.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.27.4" rel="1"/>
+  <checksum type="sha256" pkgid="YES">893e5f64f1995686b7e1f2ac7c10a96227efff2d6a0c0961a81d64ec920d7e5b</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1498858216" build="1498854167"/>
+  <size package="812913" installed="812913" archive="3765488"/>
+<location href="yarn-0.27.4-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box660.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.27.4-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.27.4" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.27.5" rel="1"/>
+  <checksum type="sha256" pkgid="YES">8d8379ed631c05841bd32e0fc93ffe2b4ebb5bb6616dfca1f8f9a4748f29a4e6</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1498867217" build="1498865307"/>
+  <size package="812939" installed="812939" archive="3765576"/>
+<location href="yarn-0.27.5-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box619.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-0.27.5-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4367"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="0.27.5" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.0.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">a33796c3ede4d21a730928c5eb046184b09827134a0134ada0879bf5317a7476</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1504799110" build="1504791255"/>
+  <size package="840275" installed="840275" archive="3869404"/>
+<location href="yarn-1.0.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box13.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.0.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.0.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.0.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">1900970420cce2b5944bfe771787885fd2217a52c5f0c1dafaeefdebee33c0a8</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1505324438" build="1505320869"/>
+  <size package="840591" installed="840591" archive="3870960"/>
+<location href="yarn-1.0.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box221.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.0.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.0.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.1.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">cbc5b9e1f87764da2df8e7b94e8bb9f37af8d4054d823d2c02f90719d4c614ab</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1506307639" build="1506277989"/>
+  <size package="869528" installed="869528" archive="3994992"/>
+<location href="yarn-1.1.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box2742.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.1.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.1.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.10.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">2d337cc866d34839fb841ab1f9a475abc38cae8d8b267363f9d8b8818b8cbc1a</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1537915516" build="1536164716"/>
+  <size package="1102452" installed="1102452" archive="4508548"/>
+<location href="yarn-1.10.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>338df6e874dc</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.10.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.10.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.10.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">2181a2999bc0b7e663b0aa10502c3f7b6f37c9ec046bc5fb04198b30114a06c9</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1537965616" build="1537963799"/>
+  <size package="1102470" installed="1102470" archive="4508616"/>
+<location href="yarn-1.10.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>4261e811ec71</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.10.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.10.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.12.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">ab8c1b3d1f65017ee7667071edd1d3f88290b4bda85e3b39fd4ae9ad3c7c7d8a</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1540906227" build="1540399749"/>
+  <size package="1145727" installed="1145727" archive="4679280"/>
+<location href="yarn-1.12.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>45bddeb9e20e</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.12.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.12.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.12.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">c43e65a242202914353c6e9b7e5635021fc645509bafb1f9cf270d848cdbe3a3</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1541621113" build="1541603590"/>
+  <size package="1158896" installed="1158896" archive="4896780"/>
+<location href="yarn-1.12.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>d07cd641f3a1</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.12.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.12.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.13.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">1e3b338416682592fd105c875d6a0288b41c5ae184922b48e26415f8b270f05b</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1547149539" build="1545149072"/>
+  <size package="1160874" installed="1160874" archive="4907460"/>
+<location href="yarn-1.13.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>56cb628325e7</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.13.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.13.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.15.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">77d49ad95333591b651fba7653187832dc17ebe89cd9da3f13f2269ddd3afd06</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1552767044" build="1552648856"/>
+  <size package="1163266" installed="1163266" archive="4912996"/>
+<location href="yarn-1.15.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>697ad31aeffb</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.15.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.15.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.16.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">d295a0d5b14451e9222717bf18ec820ffa953061886396bdd0c7e93f1e17f8ad</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1557438615" build="1556561789"/>
+  <size package="1165108" installed="1165108" archive="4915316"/>
+<location href="yarn-1.16.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>d89f576ab461</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.16.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.16.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.17.3" rel="1"/>
+  <checksum type="sha256" pkgid="YES">b3bb227fd5ea2bcb045322ed9f1e00a97a7b6c47ad04f4b540ecf3a46507a40a</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1563006916" build="1562941855"/>
+  <size package="1235085" installed="1235085" archive="5309744"/>
+<location href="yarn-1.17.3-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>4816808dcb57</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.17.3-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.17.3" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.19.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">dfc5b0f53181c1b1402ef4c2ba9e83cfd7d6897598d3ddc702ed0d0f9ea34435</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1569689712" build="1569685293"/>
+  <size package="1235609" installed="1235609" archive="5312764"/>
+<location href="yarn-1.19.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>0b72f1791389</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.19.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.19.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.19.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">dc59c9aecb5eb5fa923279d57c15aac49795f97babb43aed6c7b1e002a1986f4</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1570536015" build="1570534595"/>
+  <size package="1235812" installed="1235812" archive="5313980"/>
+<location href="yarn-1.19.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>51fa8bfc871f</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.19.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.19.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.19.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">579ea93393e8a207d857e819479eb2952e3be392ac7a6a3187bc90e6d29a0373</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1574878814" build="1574424762"/>
+  <size package="1236132" installed="1236132" archive="5315280"/>
+<location href="yarn-1.19.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>1bf01e7b1217</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.19.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.19.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.2.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">88d29fb3d36aa4c881cacfeed3be28ea0d957b28cce090c2b9de6badc4473c66</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1507620909" build="1507580631"/>
+  <size package="879914" installed="879914" archive="4032408"/>
+<location href="yarn-1.2.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box130.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.2.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.2.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.2.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">c787de98450a6449b635e614649641c240c039eaeeaf153c66e5ed0d8c5bb063</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1507808414" build="1507804182"/>
+  <size package="881028" installed="881028" archive="4036820"/>
+<location href="yarn-1.2.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>box24.localdomain</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.2.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.2.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.21.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">cb53bc1f28358769cdfa347c00b4345540803265a2ce4abb995e313ad57ece3e</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1576071014" build="1576054725"/>
+  <size package="1236609" installed="1236609" archive="5318112"/>
+<location href="yarn-1.21.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>ba7f6defa26c</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.21.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.21.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.22.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">df6af4e2f375e7e316bfa15ea8d6e4d5e7db362cea1a9ccc04fe2ff2f00a06a1</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1582759029" build="1580907291"/>
+  <size package="1236930" installed="1236930" archive="5320228"/>
+<location href="yarn-1.22.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>b3a0d211112e</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.22.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.22.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.22.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">7313ca31ba6fc68daed1c511904c891a42ee638948381e09f98fca738b0273ce</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1583514613" build="1583513203"/>
+  <size package="1237010" installed="1237010" archive="5320712"/>
+<location href="yarn-1.22.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>9750779dd8bd</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.22.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.22.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.22.4" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6d8a89cb4d54e155e3f0be4c130110ce11dbbe0d09be2de57db1bd883e9a9df5</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1583806820" build="1583769109"/>
+  <size package="1237032" installed="1237032" archive="5320812"/>
+<location href="yarn-1.22.4-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>c372a1a4797c</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.22.4-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.22.4" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.22.5" rel="1"/>
+  <checksum type="sha256" pkgid="YES">dcab6c65cfb4cce230cf2502b01a870dfda3033e9efe72d35b200a85e8e3b2c4</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1598528117" build="1598526981"/>
+  <size package="1237061" installed="5318924" archive="5320928"/>
+<location href="yarn-1.22.5-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>e0ebac3cd0c0</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.22.5-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4444"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.22.5" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.3.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">e9fc7670e920170f50c3b02a8d09d751414a19a77bf4ee624f53a71ffd2d6029</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1509654614" build="1509641027"/>
+  <size package="881914" installed="881914" archive="4040096"/>
+<location href="yarn-1.3.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>ed6d7ad212ea</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.3.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.3.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.5.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">dc3e22db0e118f7c34126931ef79dd890da51be78ab969b47fbe660b47a6619c</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1519722912" build="1519671655"/>
+  <size package="931938" installed="931938" archive="4317444"/>
+<location href="yarn-1.5.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>be57584043d0</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.5.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.5.1" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.6.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">4a3cc5253a1b641fc7c8dd3c4083a6912fd6753de7d6bfcb4ac13168f296cf75</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1523799909" build="1523467785"/>
+  <size package="937563" installed="937563" archive="4341964"/>
+<location href="yarn-1.6.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>1900e3317c84</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.6.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.6.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.7.0" rel="1"/>
+  <checksum type="sha256" pkgid="YES">2dc635d4ed35f08e4cb9698fb9f51f9ec34308da147c6061623f0fb13d6eedbc</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1527112213" build="1527109346"/>
+  <size package="940379" installed="940379" archive="4351544"/>
+<location href="yarn-1.7.0-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>f799874d5e98</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.7.0-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.7.0" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.9.2" rel="1"/>
+  <checksum type="sha256" pkgid="YES">1ba32219600632436e20a5586ad79c1eb7e0607f270a1c94917a986f3571375d</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1532728774" build="1532532902"/>
+  <size package="933423" installed="933423" archive="4362060"/>
+<location href="yarn-1.9.2-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>08e150324491</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.9.2-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.9.2" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/bin/yarn</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="1.9.4" rel="1"/>
+  <checksum type="sha256" pkgid="YES">6b5c088da82fbec1dd27cff0b702d14ba2ef4a24cf4c48e30aa5c43cc0f17802</checksum>
+  <summary>Fast, reliable, and secure dependency management.</summary>
+  <description>Fast, reliable, and secure dependency management.
+Yarn: Fast, reliable, and secure dependency management.
+ .
+Fast: Yarn caches every package it downloads so it never needs to again. It also
+parallelizes operations to maximize resource utilization so install times are
+faster than ever.
+ .
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic
+algorithm for installs, Yarn is able to guarantee that an install that worked
+on one system will work exactly the same way on any other system.
+ .
+Secure: Yarn uses checksums to verify the integrity of every installed package
+before its code is executed.</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1533668183" build="1533325989"/>
+  <size package="933703" installed="933703" archive="4363412"/>
+<location href="yarn-1.9.4-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>Development/Languages</rpm:group>
+    <rpm:buildhost>4bfce6ff13cf</rpm:buildhost>
+    <rpm:sourcerpm>yarn-1.9.4-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1440" end="4440"/>
+    <rpm:provides>
+      <rpm:entry name="yarn" flags="EQ" epoch="0" ver="1.9.4" rel="1"/>
+    </rpm:provides>
+    <rpm:requires>
+      <rpm:entry name="nodejs" pre="0"/>
+    </rpm:requires>
+    <file>/usr/bin/yarn</file>
+    <file>/usr/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarn</file>
+    <file>/usr/share/yarn/bin/yarn.cmd</file>
+    <file>/usr/share/yarn/bin/yarn.js</file>
+    <file>/usr/share/yarn/bin/yarnpkg</file>
+    <file>/usr/share/yarn/bin/yarnpkg.cmd</file>
+  </format>
+</package>
+<package type="rpm">
+  <name>yarn-helloworld</name>
+  <arch>noarch</arch>
+  <version epoch="0" ver="0.0.1" rel="1"/>
+  <checksum type="sha256" pkgid="YES">1a866f745ead6f814dc8ccc9e4e91651c3e741ff419224e736ff81268f2652f5</checksum>
+  <summary>Hello world 1</summary>
+  <description>Hello world 1
+Hello world 2</description>
+  <packager>Yarn Contributors &lt;yarn@dan.cx&gt;</packager>
+  <url>https://yarnpkg.com/</url>
+  <time file="1480664635" build="1476054212"/>
+  <size package="2807" installed="2807" archive="296"/>
+<location href="yarn-helloworld-0.0.1-1.noarch.rpm"/>
+  <format>
+    <rpm:license>BSD</rpm:license>
+    <rpm:vendor>Yarn Contributors &lt;yarn@dan.cx&gt;</rpm:vendor>
+    <rpm:group>default</rpm:group>
+    <rpm:buildhost>Daniel-PC</rpm:buildhost>
+    <rpm:sourcerpm>yarn-helloworld-0.0.1-1.src.rpm</rpm:sourcerpm>
+    <rpm:header-range start="1392" end="2672"/>
+    <rpm:provides>
+      <rpm:entry name="yarn-helloworld" flags="EQ" epoch="0" ver="0.0.1" rel="1"/>
+    </rpm:provides>
+    <file>/usr/bin/hello-world.sh</file>
+  </format>
+</package>
+</metadata>

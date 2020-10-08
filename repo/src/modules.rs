@@ -2,7 +2,7 @@ use crate::prelude::*;
 
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(tag = "document", content = "data")]
+#[serde(tag = "document", content = "testdata")]
 pub enum Chunk {
     #[serde(rename = "modulemd")]
     ModuleMd(ModuleMDData),
