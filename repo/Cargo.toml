@@ -1,6 +1,6 @@
 [package]
 name = "rpmrepo"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
 description = "Crate containing definitions for parsing yum repositry data structures"

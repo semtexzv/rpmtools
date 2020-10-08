@@ -1,6 +1,6 @@
 [package]
 name = "rpmsync"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
 description = "Library to perform fast & lightweight syncing of RPM repositories"
@@ -28,7 +28,7 @@ branch = "multidoc"
 default-features = false
 
 [dependencies.rpmrepo]
-version = "0.0.2"
+version = "0.0.3"
 path = "../repo"
 
 [dependencies.ureq]

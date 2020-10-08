@@ -1,6 +1,6 @@
 [package]
 name = "bindb"
-version = "0.0.1"
+version = "0.0.3"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
 description = "Simple typed key-value database using sled and bincode"
