@@ -1,0 +1,32 @@
+[package]
+name = "yumrepo"
+version = "0.0.1"
+authors = ["Michal Hornicky <mhornick@redhat.com>"]
+edition = "2018"
+description = "Crate containing definitions for parsing yum repositry data structures"
+repository = "https://github.com/semtexzv/yumrepo.git"
+documentation = "https://docs.rs/yumrepo"
+keywords = ["yum", "rpm", "repository"]
+categories = ["parsing"]
+homepage = "https://github.com/semtexzv/yumrepo.git"
+license = "MIT"
+
+[dependencies.serde]
+version = "1"
+default-features = false
+features = ["derive"]
+
+[dependencies.xml]
+package = "quick-xml"
+version = "0.17.1"
+default-features = false
+features = ["serialize"]
+
+[dependencies.syaml]
+package = "serde_yaml"
+version = "0.8"
+git = "https://github.com/semtexzv/serde-yaml"
+branch = "multidoc"
+default-features = false
+
+[dependencies]
