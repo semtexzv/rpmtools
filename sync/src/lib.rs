@@ -40,10 +40,7 @@ impl Syncer {
             .call();
 
         if !resp.ok() {
-            if let Some(err) = resp.synthetic_error() {
-                // TODO: https://github.com/algesten/ureq/issues/126
-                return Err(Box::new(ErrorImpl::Req(url, err.to_string())));
-            }
+            return Err(ErrorImpl::from_resp(&url, &resp));
         }
         let reader = resp.into_reader();
         let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
@@ -95,10 +92,7 @@ impl Syncer {
             .call();
 
         if !resp.ok() {
-            if let Some(err) = resp.synthetic_error() {
-                // TODO: https://github.com/algesten/ureq/issues/126
-                return Err(Box::new(ErrorImpl::Req(url, err.to_string())));
-            }
+            return Err(ErrorImpl::from_resp(&url, &resp));
         }
 
         let mut data = String::new();
@@ -118,16 +112,17 @@ impl Syncer {
 
         let data = if let Some(data) = md.find_item(typ.clone()) {
             data
-        } else { return return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());; };
+        } else {
+            return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());;
+        };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        println!("URL: {:?}", url);
         let resp = ureq::get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
         if !resp.ok() {
-            panic!("Error getting {:?}", typ)
+            return Err(ErrorImpl::from_resp(&url, &resp));
         }
 
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
@@ -159,15 +154,14 @@ fn test_sync() {
                     if let ErrorImpl::TypeNotFound(typ) = *err {
                         println!("Did not find : {:?}", typ);
                     }
-
                 };
 
                 if let Err(err) = syncer.sync_modules(self, &md) {
                     if let ErrorImpl::TypeNotFound(typ) = *err {
                         println!("Did not find : {:?}", typ);
                     }
-
-                };;
+                };
+                ;
             }
         }
 
