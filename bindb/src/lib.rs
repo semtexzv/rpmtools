@@ -1,5 +1,5 @@
 #![feature(slice_fill)]
-
+pub use sled;
 use serde::{Serialize, de::DeserializeOwned};
 use std::ops::{Deref, Range};
 use bincode::Options;
