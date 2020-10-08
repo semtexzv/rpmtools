@@ -113,7 +113,7 @@ impl Syncer {
         let data = if let Some(data) = md.find_item(typ.clone()) {
             data
         } else {
-            return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());;
+            return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
@@ -161,7 +161,7 @@ fn test_sync() {
                         println!("Did not find : {:?}", typ);
                     }
                 };
-                ;
+
             }
         }
 
