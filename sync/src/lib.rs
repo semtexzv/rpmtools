@@ -18,6 +18,7 @@ const UPDATE_PATH: &[&str] = &["update"];
 pub struct Syncer {
     base: String,
     cert_config: Arc<rustls::ClientConfig>,
+    agent: ureq::Agent,
 }
 
 impl Syncer {
@@ -27,15 +28,19 @@ impl Syncer {
             base.push('/');
         }
 
+        let agent = ureq::Agent::new();
+        agent.set_max_pool_connections(4);
+        agent.set_max_pool_connections_per_host(2);
         Self {
             base,
             cert_config: Arc::new(cfg),
+            agent,
         }
     }
 
     pub fn sync_md(&self, target: &mut dyn SyncTarget) -> Result<()> {
         let url = format!("{}repodata/repomd.xml", &self.base);
-        let resp = ureq::get(&url)
+        let resp = self.agent.get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
@@ -87,7 +92,7 @@ impl Syncer {
         } else { return Err(ErrorImpl::TypeNotFound(Type::Modules).boxed()); };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        let resp = ureq::get(&url)
+        let resp = self.agent.get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
@@ -117,7 +122,7 @@ impl Syncer {
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        let resp = ureq::get(&url)
+        let resp = self.agent.get(&url)
             .set_tls_config(self.cert_config.clone())
             .call();
 
@@ -161,7 +166,6 @@ fn test_sync() {
                         println!("Did not find : {:?}", typ);
                     }
                 };
-
             }
         }
 
