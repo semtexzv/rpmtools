@@ -1,14 +1,14 @@
 [package]
-name = "yumrepo"
+name = "rpmrepo"
 version = "0.0.1"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
 description = "Crate containing definitions for parsing yum repositry data structures"
-repository = "https://github.com/semtexzv/yumrepo.git"
-documentation = "https://docs.rs/yumrepo"
+repository = "https://github.com/semtexzv/rpmrepo.git"
+documentation = "https://docs.rs/rpmrepo"
 keywords = ["yum", "rpm", "repository"]
 categories = ["parsing"]
-homepage = "https://github.com/semtexzv/yumrepo.git"
+homepage = "https://github.com/semtexzv/rpmrepo.git"
 license = "MIT"
 
 [dependencies.serde]

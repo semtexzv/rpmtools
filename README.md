@@ -1,6 +1,5 @@
 # YumRepo 
-[Documentation](https://docs.rs/yumrepo) 
+[![](http://meritbadge.herokuapp.com/rpmrepo)](https://crates.io/crates/rpmrepo)
+[Documentation](https://docs.rs/rpmrepo) 
 
-[![](http://meritbadge.herokuapp.com/yumrepo)](https://crates.io/crates/yumrepo)
-
-This crate provides rust definitions for common files in yum repository structure.
+This crate provides rust definitions for common files in RPM repository structure.
