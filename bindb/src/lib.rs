@@ -16,6 +16,7 @@ pub trait Table: Serialize + DeserializeOwned {
     type Key: PartialOrd + Serialize + DeserializeOwned;
 }
 
+
 /*
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(bound(deserialize = "T: DeserializeOwned"))]
@@ -56,6 +57,14 @@ pub trait Database {
     /// Performs a full table scan of a specified table
     fn tscan<T: Table>(&self) -> Vec<T>;
 }
+
+/*
+pub trait DatabaseExt {
+    fn tmigrate<FROM: Table, TO: Table<Key=FROM::Key>, F: Fn(FROM) -> Option<TO>>(&self) {
+
+    }
+}
+ */
 
 fn key_bytes_empty<T: Table>() -> Vec<u8> {
     key_opts().serialize(&(T::NAME, T::VERSION, ())).unwrap()

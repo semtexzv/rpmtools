@@ -1,13 +1,13 @@
 use crate::prelude::*;
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateInfo {
     #[serde(default)]
     #[serde(rename = "update")]
     pub updates: Vec<Update>
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Update {
     #[serde(rename = "type")]
     pub typ: String,
@@ -33,12 +33,12 @@ pub struct Update {
     pub pkglist: Vec<PkgList>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Date {
     pub date: String
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Reference {
     pub href: Option<String>,
     pub id: Option<String>,
@@ -47,19 +47,19 @@ pub struct Reference {
     pub title: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PkgList {
     pub collection: Vec<Collection>
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Collection {
     pub name: String,
     pub module: Option<Module>,
     pub package: Vec<Package>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Module {
     pub name: String,
     pub stream: String,
@@ -69,7 +69,7 @@ pub struct Module {
     pub context: String,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Package {
     pub name: String,
     pub epoch: String,
