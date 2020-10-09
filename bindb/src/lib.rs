@@ -58,11 +58,11 @@ pub trait Database {
 }
 
 fn key_bytes_empty<T: Table>() -> Vec<u8> {
-    key_opts().serialize(&(T::NAME, ())).unwrap()
+    key_opts().serialize(&(T::NAME, T::VERSION, ())).unwrap()
 }
 
 fn key_bytes<T: Table>(k: &T::Key) -> Vec<u8> {
-    return key_opts().serialize(&(T::NAME, k)).unwrap();
+    return key_opts().serialize(&(T::NAME, T::VERSION, k)).unwrap();
 }
 
 impl Database for sled::Tree {
@@ -126,8 +126,9 @@ fn test_simple() {
         type Key = Self;
     }
 
-    std::fs::remove_dir_all("/tmp/db.test").unwrap();
+    let _ = std::fs::remove_dir_all("/tmp/db.test");
     let db = sled::open("/tmp/db.test").unwrap();
+
     assert!(db.tput(&Key(0, 0), &Key(0, 0)).is_none());
     assert!(db.tput(&Key(0, 0), &Key(0, 0)).is_some());
     assert!(db.tput(&Key(1, 0), &Key(1, 0)).is_none());
@@ -153,7 +154,6 @@ fn test_order() {
         const VERSION: u8 = 0;
         type Key = Self;
     }
-    let _ = std::fs::create_dir_all("/tmp");
     let _ = std::fs::remove_dir_all("/tmp/db.test2");
     let db = sled::open("/tmp/db.test2").unwrap();
 
