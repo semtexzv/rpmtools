@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "document", content = "testdata")]
 pub enum Chunk {
     #[serde(rename = "modulemd")]
@@ -10,7 +10,7 @@ pub enum Chunk {
     Defaults(DefaultsData),
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct License {
     #[serde(default)]
     pub module: Vec<String>,
@@ -20,19 +20,19 @@ pub struct License {
 
 pub type Requires = HashMap<String, Vec<String>>;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Depencency {
     pub requires: Requires,
     #[serde(default)]
     pub buildrequires: Requires,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rpms<T> {
     pub rpms: T
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Profile {
     pub description: Option<String>,
     pub rpms: Vec<String>,
@@ -40,7 +40,7 @@ pub struct Profile {
 
 pub type Profiles = HashMap<String, Profile>;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Component {
     pub rationale: String,
     #[serde(rename = "ref")]
@@ -52,7 +52,7 @@ pub struct Component {
     pub multilib: Vec<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModuleMDData {
     pub name: String,
     pub stream: String,
@@ -75,7 +75,7 @@ pub struct ModuleMDData {
     pub artifacts: Option<Rpms<Vec<String>>>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DefaultsData {
     pub module: String,
     pub stream: String,

@@ -1,16 +1,15 @@
 use crate::prelude::*;
 use crate::repomd::{Checksum, Location};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Primary {
-
     #[serde(rename = "packages")]
     pub package_count: usize,
     #[serde(rename = "package")]
     pub packages: Vec<Package>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Package {
     #[serde(rename = "type")]
     pub typ: String,
@@ -30,10 +29,9 @@ pub struct Package {
     // TODO: Extensible
     pub format: Option<Format>,
 
-
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialOrd, Ord, Eq, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialOrd, Ord, Eq, PartialEq)]
 pub struct PackageVersion {
     // TODO: should be usize ?
     pub epoch: String,
@@ -42,13 +40,13 @@ pub struct PackageVersion {
 
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PackageTime {
     pub file: usize,
     pub build: usize,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PackageSize {
     pub package: usize,
     pub archive: usize,
@@ -56,7 +54,7 @@ pub struct PackageSize {
 }
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Format {
     #[serde(rename = "sourcerpm")]
     pub source: String
@@ -68,5 +66,4 @@ fn test_parse_primary() {
     let data = include_str!("../../testdata/yarm-primary.xml");
     let primary = xml::de::from_str::<Primary>(data).unwrap();
     assert_eq!(primary.packages.len(), 51);
-
 }

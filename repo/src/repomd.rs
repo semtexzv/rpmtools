@@ -1,19 +1,19 @@
 use crate::prelude::*;
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RepoMD {
     pub revision: usize,
-    pub data: Vec<RepoMDItem>
+    pub data: Vec<RepoMDItem>,
 }
 
 impl RepoMD {
-    pub fn find_item(&self, typ : Type) -> Option<&RepoMDItem> {
+    pub fn find_item(&self, typ: Type) -> Option<&RepoMDItem> {
         self.data.iter().find(|it| it.typ == typ)
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RepoMDItem {
     #[serde(rename = "type")]
     pub typ: Type,
@@ -29,12 +29,11 @@ pub struct RepoMDItem {
 
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialOrd, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialOrd, PartialEq, Ord, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum Type {
     Primary,
     PrimaryDb,
-
 
     Other,
     OtherDb,
@@ -50,18 +49,18 @@ pub enum Type {
     #[serde(rename = "updateinfo")]
     UpdateInfo,
     #[serde(other)]
-    Unknown
+    Unknown,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Checksum {
     #[serde(rename = "type")]
-    pub typ : String,
+    pub typ: String,
     #[serde(rename = "$value")]
-    pub value: String
+    pub value: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Location{
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Location {
     pub href: String
 }
