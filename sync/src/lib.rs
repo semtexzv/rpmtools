@@ -14,6 +14,7 @@ use rpmrepo::{
 
 const PACKAGE_PATH: &[&str] = &["package"];
 const UPDATE_PATH: &[&str] = &["update"];
+const BUFFER_SIZE: usize = 1024 * 1024;
 
 pub struct Syncer {
     base: String,
@@ -131,7 +132,8 @@ impl Syncer {
         }
 
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
-        let mut de = Deserializer::from_reader(BufReader::new(decomp));
+        let reader = BufReader::with_capacity(BUFFER_SIZE, decomp);
+        let mut de = Deserializer::from_reader(reader);
 
         Ok(Some(DeserializeSeed::deserialize(seed, &mut de).map_err(|e| ErrorImpl::Xml(e))?))
     }
@@ -183,8 +185,14 @@ fn test_sync() {
     }
 
     let mut cert = rustls::ClientConfig::default();
-    let cert_file = std::fs::File::open("/etc/ssl/certs/ca-bundle.crt").unwrap();
-    cert.root_store.add_pem_file(&mut BufReader::new(cert_file)).unwrap();
+    for f in std::fs::read_dir("/etc/ssl/certs/").unwrap() {
+        let f = f.unwrap();
+        if f.path().extension().and_then(|s| s.to_str()) == Some("crt") {
+            if let Ok(cert_file) = std::fs::File::open(f.path()) {
+                cert.root_store.add_pem_file(&mut BufReader::new(cert_file)).unwrap();
+            }
+        }
+    }
     let syncer = Syncer::new(cert, "https://dl.yarnpkg.com/rpm/");
     syncer.sync_md(&mut DummyTarget {
         last_rev: 0
