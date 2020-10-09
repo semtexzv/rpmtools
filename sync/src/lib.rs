@@ -23,15 +23,13 @@ pub struct Syncer {
 }
 
 impl Syncer {
-    pub fn new(cfg: rustls::ClientConfig, url: &str) -> Self {
+    pub fn new(cfg: rustls::ClientConfig, url: &str, conns: usize) -> Self {
         let mut base = url.to_string();
         if !base.ends_with('/') {
             base.push('/');
         }
 
         let agent = ureq::Agent::new();
-        agent.set_max_pool_connections(4);
-        agent.set_max_pool_connections_per_host(2);
         Self {
             base,
             cert_config: Arc::new(cfg),
