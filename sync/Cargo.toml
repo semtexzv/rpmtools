@@ -45,3 +45,4 @@ version = "*"
 features = ["bz2", "gz", "lzma"]
 
 [dependencies]
+retry = "1.1.0"

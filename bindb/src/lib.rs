@@ -1,5 +1,3 @@
-#![feature(is_sorted)]
-
 pub use sled;
 use serde::{Serialize, Deserialize, de::DeserializeOwned};
 use std::ops::{Deref, Range};
@@ -36,11 +34,11 @@ impl<T: Table> Versioned<T> {
     }
 }
 */
-
+/*
 fn key_opts() -> bincode::config::WithOtherIntEncoding<bincode::config::WithOtherEndian<bincode::DefaultOptions, BigEndian>, FixintEncoding> {
     bincode::DefaultOptions::default().with_big_endian().with_fixint_encoding()
 }
-
+*/
 fn val_opts() -> bincode::config::WithOtherEndian<bincode::DefaultOptions, LittleEndian> {
     bincode::DefaultOptions::default().with_little_endian()
 }
@@ -157,8 +155,7 @@ fn test_simple() {
 
 #[test]
 fn test_order() {
-
-    #[derive(Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
+    #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
     struct Key(String, String);
 
     impl Table for Key {
@@ -185,6 +182,8 @@ fn test_order() {
     assert!(db.tput(&Key(a.clone(), abc.clone()), &Key(a.clone(), abc.clone())).is_none());
 
     let all = db.tscan::<Key>();
-    assert!(all.is_sorted());
+    let mut sorted = all.clone();
+    sorted.sort();
+    assert_eq!(all, sorted);
     //panic!("{:?}", all);
 }

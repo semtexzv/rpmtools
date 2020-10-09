@@ -11,6 +11,7 @@ use rpmrepo::{
     updateinfo::Update,
     modules::Chunk,
 };
+use retry::OperationResult;
 
 const PACKAGE_PATH: &[&str] = &["package"];
 const UPDATE_PATH: &[&str] = &["update"];
@@ -23,7 +24,7 @@ pub struct Syncer {
 }
 
 impl Syncer {
-    pub fn new(cfg: rustls::ClientConfig, url: &str, conns: usize) -> Self {
+    pub fn new(cfg: rustls::ClientConfig, url: &str) -> Self {
         let mut base = url.to_string();
         if !base.ends_with('/') {
             base.push('/');
@@ -39,13 +40,12 @@ impl Syncer {
 
     pub fn sync_md(&self, target: &mut dyn SyncTarget) -> Result<()> {
         let url = format!("{}repodata/repomd.xml", &self.base);
-        let resp = self.agent.get(&url)
-            .set_tls_config(self.cert_config.clone())
-            .call();
 
-        if !resp.ok() {
-            return Err(ErrorImpl::from_resp(&url, &resp));
-        }
+        let resp = retry_call(|| {
+            self.agent.get(&url)
+                .set_tls_config(self.cert_config.clone())
+                .call()
+        })?;
 
         let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
         let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
@@ -92,13 +92,12 @@ impl Syncer {
         } else { return Err(ErrorImpl::TypeNotFound(Type::Modules).boxed()); };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        let resp = self.agent.get(&url)
-            .set_tls_config(self.cert_config.clone())
-            .call();
 
-        if !resp.ok() {
-            return Err(ErrorImpl::from_resp(&url, &resp));
-        }
+        let resp = retry_call(|| {
+            self.agent.get(&url)
+                .set_tls_config(self.cert_config.clone())
+                .call()
+        })?;
 
         let mut data = String::new();
         let (mut reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
@@ -123,13 +122,11 @@ impl Syncer {
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        let resp = self.agent.get(&url)
-            .set_tls_config(self.cert_config.clone())
-            .call();
-
-        if !resp.ok() {
-            return Err(ErrorImpl::from_resp(&url, &resp));
-        }
+        let resp = retry_call(|| {
+            self.agent.get(&url)
+                .set_tls_config(self.cert_config.clone())
+                .call()
+        })?;
 
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
         let reader = BufReader::with_capacity(BUFFER_SIZE, decomp);
