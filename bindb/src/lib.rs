@@ -1,3 +1,5 @@
+#![feature(is_sorted)]
+
 pub use sled;
 use serde::{Serialize, Deserialize, de::DeserializeOwned};
 use std::ops::{Deref, Range};
@@ -67,11 +69,11 @@ pub trait DatabaseExt {
  */
 
 fn key_bytes_empty<T: Table>() -> Vec<u8> {
-    key_opts().serialize(&(T::NAME, T::VERSION, ())).unwrap()
+    bytekey::serialize(&(T::NAME, T::VERSION, ())).unwrap()
 }
 
 fn key_bytes<T: Table>(k: &T::Key) -> Vec<u8> {
-    return key_opts().serialize(&(T::NAME, T::VERSION, k)).unwrap();
+    return bytekey::serialize(&(T::NAME, T::VERSION, k)).unwrap();
 }
 
 impl Database for sled::Tree {
@@ -155,6 +157,7 @@ fn test_simple() {
 
 #[test]
 fn test_order() {
+
     #[derive(Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
     struct Key(String, String);
 
@@ -179,8 +182,9 @@ fn test_order() {
     assert!(db.tput(&Key(b.clone(), empty.clone()), &Key(b.clone(), empty.clone())).is_none());
     assert!(db.tput(&Key(b.clone(), abc.clone()), &Key(b.clone(), abc.clone())).is_none());
     assert!(db.tput(&Key(ab.clone(), empty.clone()), &Key(ab.clone(), empty.clone())).is_none());
-    assert!(db.tput(&Key(ab.clone(), abc.clone()), &Key(ab.clone(), abc.clone())).is_none());
+    assert!(db.tput(&Key(a.clone(), abc.clone()), &Key(a.clone(), abc.clone())).is_none());
 
     let all = db.tscan::<Key>();
+    assert!(all.is_sorted());
     //panic!("{:?}", all);
 }
