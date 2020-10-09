@@ -12,8 +12,7 @@ use retry::OperationResult;
 #[derive(Debug)]
 pub enum ErrorImpl {
     // TODO: https://github.com/algesten/ureq/issues/126
-    Req(String, String),
-    ReqCode(String, String, u16),
+    Req(String, String, u16),
     Xml(xml::de::DeError),
     Yaml(syaml::Error),
     TypeNotFound(Type),
@@ -21,12 +20,13 @@ pub enum ErrorImpl {
 
 impl ErrorImpl {
     pub fn from_resp(url: &str, resp: &ureq::Response) -> Box<Self> {
-        if let Some(err) = resp.synthetic_error() {
-            // TODO: https://github.com/algesten/ureq/issues/126
-            return Box::new(ErrorImpl::Req(url.to_string(), err.to_string()));
-        } else {
-            return Box::new(ErrorImpl::ReqCode(url.to_string(), resp.status_text().to_string(), resp.status()));
-        }
+
+        let err = resp.synthetic_error().as_ref()
+            .map(|e| e.to_string())
+            .unwrap_or_else(|| resp.status_text().to_string());
+
+        // TODO: https://github.com/algesten/ureq/issues/126
+        return Box::new(ErrorImpl::Req(url.to_string(), err, resp.status()));
     }
     pub fn boxed(self) -> Box<Self> {
         Box::new(self)
@@ -60,10 +60,15 @@ pub fn retry_call<F: FnMut() -> Response>(mut call: F) -> Result<Response, Box<E
             return OperationResult::Ok(resp);
         }
         let err = ErrorImpl::from_resp("", &resp);
-        return if resp.client_error() {
-            OperationResult::Err(err)
-        } else {
+
+        // We consider failure to lookup to be retryable
+        if let Some(ureq::Error::DnsFailed(_)) = resp.synthetic_error() {
             OperationResult::Retry(err)
-        };
+        } else if resp.server_error() {
+            // Server errors might be transient
+            OperationResult::Retry(err)
+        } else {
+            OperationResult::Err(err)
+        }
     }).map_err(unwrap_inner)
 }
