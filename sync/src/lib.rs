@@ -103,8 +103,9 @@ impl Syncer {
         }
 
         let mut data = String::new();
-        let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
+        let (mut reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
 
+        reader.read_to_string(&mut data).unwrap();
         let modules: Vec<Chunk> = syaml::from_str_multidoc(&data).unwrap();
         for m in modules {
             target.on_module_chunk(m);
