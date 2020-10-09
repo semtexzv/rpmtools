@@ -48,7 +48,8 @@ impl Syncer {
         if !resp.ok() {
             return Err(ErrorImpl::from_resp(&url, &resp));
         }
-        let reader = resp.into_reader();
+
+        let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
         let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
         target.on_metadata(self, md);
 
@@ -102,7 +103,7 @@ impl Syncer {
         }
 
         let mut data = String::new();
-        resp.into_reader().read_to_string(&mut data).unwrap();
+        let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
 
         let modules: Vec<Chunk> = syaml::from_str_multidoc(&data).unwrap();
         for m in modules {
