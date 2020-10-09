@@ -47,8 +47,8 @@ impl Syncer {
                 .call()
         })?;
 
-        let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
-        let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
+        let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
+        let md: RepoMD = xml::de::from_reader(BufReader::new(reader))?;
         target.on_metadata(self, md);
 
         Ok(())
@@ -100,10 +100,10 @@ impl Syncer {
         })?;
 
         let mut data = String::new();
-        let (mut reader, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
+        let (mut reader, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
 
-        reader.read_to_string(&mut data).unwrap();
-        let modules: Vec<Chunk> = syaml::from_str_multidoc(&data).unwrap();
+        reader.read_to_string(&mut data)?;
+        let modules: Vec<Chunk> = syaml::from_str_multidoc(&data)?;
         for m in modules {
             target.on_module_chunk(m);
         }
@@ -118,7 +118,7 @@ impl Syncer {
         let data = if let Some(data) = md.find_item(typ.clone()) {
             data
         } else {
-            return Err(ErrorImpl::TypeNotFound(typ.clone()).boxed());
+            return Err(ErrorImpl::TypeNotFound(typ).boxed());
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
@@ -128,11 +128,11 @@ impl Syncer {
                 .call()
         })?;
 
-        let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader())).unwrap();
+        let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
         let reader = BufReader::with_capacity(BUFFER_SIZE, decomp);
         let mut de = Deserializer::from_reader(reader);
 
-        Ok(Some(DeserializeSeed::deserialize(seed, &mut de).map_err(|e| ErrorImpl::Xml(e))?))
+        Ok(Some(DeserializeSeed::deserialize(seed, &mut de).map_err(ErrorImpl::Xml)?))
     }
 }
 

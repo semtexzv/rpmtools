@@ -9,18 +9,50 @@ use std::fmt::Debug;
 use ureq::Response;
 use retry::OperationResult;
 
-#[derive(Debug)]
+#[derive(Debug, thiserror::Error)]
 pub enum ErrorImpl {
+    #[error("Requesting a resource")]
     // TODO: https://github.com/algesten/ureq/issues/126
     Req(String, String, u16),
-    Xml(xml::de::DeError),
-    Yaml(syaml::Error),
+    #[error("IO")]
+    Io(#[from] std::io::Error),
+    #[error("Parsing xml")]
+    Xml(#[from] xml::de::DeError),
+    #[error("Parsing yaml")]
+    Yaml(#[from] syaml::Error),
+    #[error("Stream compression")]
+    Niffler(#[from] niffler::Error),
+    #[error("{0:?} not found in repo metadata")]
     TypeNotFound(Type),
+}
+
+impl From<xml::de::DeError> for Box<ErrorImpl> {
+    fn from(e: xml::de::DeError) -> Self {
+        Box::new(ErrorImpl::Xml(e))
+    }
+}
+
+impl From<niffler::Error> for Box<ErrorImpl> {
+    fn from(e: niffler::Error) -> Self {
+        Box::new(ErrorImpl::Niffler(e))
+    }
+}
+
+impl From<std::io::Error> for Box<ErrorImpl> {
+    fn from(e: std::io::Error) -> Self {
+        Box::new(ErrorImpl::Io(e))
+    }
+}
+
+
+impl From<syaml::Error> for Box<ErrorImpl> {
+    fn from(e: syaml::Error) -> Self {
+        Box::new(ErrorImpl::Yaml(e))
+    }
 }
 
 impl ErrorImpl {
     pub fn from_resp(url: &str, resp: &ureq::Response) -> Box<Self> {
-
         let err = resp.synthetic_error().as_ref()
             .map(|e| e.to_string())
             .unwrap_or_else(|| resp.status_text().to_string());
