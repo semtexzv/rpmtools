@@ -153,6 +153,7 @@ fn test_order() {
         const VERSION: u8 = 0;
         type Key = Self;
     }
+    let _ = std::fs::create_dir_all("/tmp");
     let _ = std::fs::remove_dir_all("/tmp/db.test2");
     let db = sled::open("/tmp/db.test2").unwrap();
 
