@@ -52,17 +52,18 @@ fn unwrap_inner<E: Debug>(e: retry::Error<E>) -> E {
     }
 }
 
+
 pub fn retry_call<F: FnMut() -> Response>(mut call: F) -> Result<Response, Box<ErrorImpl>> {
     retry::retry(backoff(), || {
         let resp = call();
-        if !resp.ok() {
-            let err = ErrorImpl::from_resp("", &resp);
-            return if resp.server_error() {
-                OperationResult::Err(err)
-            } else {
-                OperationResult::Retry(err)
-            };
+        if resp.ok() {
+            return OperationResult::Ok(resp);
         }
-        OperationResult::Ok(resp)
+        let err = ErrorImpl::from_resp("", &resp);
+        return if resp.client_error() {
+            OperationResult::Err(err)
+        } else {
+            OperationResult::Retry(err)
+        };
     }).map_err(unwrap_inner)
 }
