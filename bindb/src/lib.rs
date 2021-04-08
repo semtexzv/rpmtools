@@ -4,6 +4,21 @@ use std::ops::{Deref, Range};
 use bincode::Options;
 use bincode::config::{BigEndian, LittleEndian, FixintEncoding};
 
+/// Trait denoting an engine capable of providing storage for tables
+pub trait DBOps {
+    /// Serializes the key and retrieves what was stored using this key
+    fn tget<T: Table>(&self, k: &T::Key) -> Option<T>;
+
+    // Performs a range scan over a part of the table. TODO: Use iterators, don't collect
+    fn trange<T: Table>(&self, range: Range<&T::Key>) -> Vec<T>;
+
+    /// Serializes the key and value using proper formats(Big endian for key, little endian for values)
+    /// and safely stores this entry in the database
+    fn tput<T: Table>(&self, v: &T) -> Option<T>;
+    /// Performs a full table scan of a specified table
+    fn tscan<T: Table>(&self) -> Vec<T>;
+}
+
 /// Types which should be stored.
 pub trait Table: Serialize + DeserializeOwned {
     /// Name of the table. This should be unique within database
@@ -14,57 +29,13 @@ pub trait Table: Serialize + DeserializeOwned {
     /// in rust as it does in its bincode serialized form. Simply - Fields sorted in-order
     /// numeric values sorted naturally, and strings lexicographically.
     type Key: PartialOrd + Serialize + DeserializeOwned;
+
+    fn key(&self) -> Self::Key;
 }
 
-
-/*
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(bound(deserialize = "T: DeserializeOwned"))]
-pub struct Versioned<T: Table> {
-    version: u8,
-    data: T,
-}
-
-impl<T: Table> Versioned<T> {
-    pub fn new(t: T) -> Self {
-        Self {
-            version: T::VERSION,
-            data: t,
-        }
-    }
-}
-*/
-/*
-fn key_opts() -> bincode::config::WithOtherIntEncoding<bincode::config::WithOtherEndian<bincode::DefaultOptions, BigEndian>, FixintEncoding> {
-    bincode::DefaultOptions::default().with_big_endian().with_fixint_encoding()
-}
-*/
 fn val_opts() -> bincode::config::WithOtherEndian<bincode::DefaultOptions, LittleEndian> {
     bincode::DefaultOptions::default().with_little_endian()
 }
-
-/// Trait denoting an engine capable of providing storage for tables
-pub trait Database {
-    /// Serializes the key and retrieves what was stored using this key
-    fn tget<T: Table>(&self, k: &T::Key) -> Option<T>;
-
-    // Performs a range scan over a part of the table. TODO: Use iterators, don't collect
-    fn trange<T: Table>(&self, range: Range<&T::Key>) -> Vec<T>;
-
-    /// Serializes the key and value using proper formats(Big endian for key, little endian for values)
-    /// and safely stores this entry in the database
-    fn tput<T: Table>(&self, k: &T::Key, v: &T) -> Option<T>;
-    /// Performs a full table scan of a specified table
-    fn tscan<T: Table>(&self) -> Vec<T>;
-}
-
-/*
-pub trait DatabaseExt {
-    fn tmigrate<FROM: Table, TO: Table<Key=FROM::Key>, F: Fn(FROM) -> Option<TO>>(&self) {
-
-    }
-}
- */
 
 fn key_bytes_empty<T: Table>() -> Vec<u8> {
     bytekey::serialize(&(T::NAME, T::VERSION, ())).unwrap()
@@ -74,7 +45,7 @@ fn key_bytes<T: Table>(k: &T::Key) -> Vec<u8> {
     return bytekey::serialize(&(T::NAME, T::VERSION, k)).unwrap();
 }
 
-impl Database for sled::Tree {
+impl DBOps for sled::Tree {
     fn tget<T: Table>(&self, k: &T::Key) -> Option<T> {
         let key = key_bytes::<T>(k);
 
@@ -106,8 +77,9 @@ impl Database for sled::Tree {
         }).collect()
     }
 
-    fn tput<T: Table>(&self, k: &T::Key, v: &T) -> Option<T> {
-        let key = key_bytes::<T>(k);
+    fn tput<T: Table>(&self, v: &T) -> Option<T> {
+        let k = v.key();
+        let key = key_bytes::<T>(&k);
 
         let value = val_opts().serialize(v).unwrap();
 
@@ -144,7 +116,7 @@ fn test_simple() {
     assert!(db.tput(&Key(2, 0), &Key(2, 0)).is_none());
     assert!(db.tput(&Key(4, 0), &Key(4, 0)).is_none());
 
-    assert_eq!(Database::tget(db.deref(), &Key(2, 0)), Some(Key(2, 0)));
+    assert_eq!(DBOps::tget(db.deref(), &Key(2, 0)), Some(Key(2, 0)));
 
     let range = db.tscan::<Key>();
     assert_eq!(range.len(), 4);

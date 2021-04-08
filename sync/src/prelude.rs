@@ -6,8 +6,9 @@ pub(crate) use serde::{Deserialize, de::DeserializeSeed};
 use rpmrepo::repomd::Type;
 use std::time::Duration;
 use std::fmt::Debug;
-use ureq::Response;
+use ureq::{Response, ErrorKind};
 use retry::OperationResult;
+use retry::Error::Operation;
 
 #[derive(Debug, thiserror::Error)]
 pub enum ErrorImpl {
@@ -22,6 +23,8 @@ pub enum ErrorImpl {
     Yaml(#[from] syaml::Error),
     #[error("Stream compression")]
     Niffler(#[from] niffler::Error),
+    #[error("HTTP: {0:?}")]
+    Ureq(#[from] ureq::Error),
     #[error("{0:?} not found in repo metadata")]
     TypeNotFound(Type),
 }
@@ -52,6 +55,7 @@ impl From<syaml::Error> for Box<ErrorImpl> {
 }
 
 impl ErrorImpl {
+    /*
     pub fn from_resp(url: &str, resp: &ureq::Response) -> Box<Self> {
         let err = resp.synthetic_error().as_ref()
             .map(|e| e.to_string())
@@ -60,6 +64,8 @@ impl ErrorImpl {
         // TODO: https://github.com/algesten/ureq/issues/126
         return Box::new(ErrorImpl::Req(url.to_string(), err, resp.status()));
     }
+
+     */
     pub fn boxed(self) -> Box<Self> {
         Box::new(self)
     }
@@ -85,22 +91,20 @@ fn unwrap_inner<E: Debug>(e: retry::Error<E>) -> E {
 }
 
 
-pub fn retry_call<F: FnMut() -> Response>(mut call: F) -> Result<Response, Box<ErrorImpl>> {
+pub fn retry_call<F: FnMut() -> Result<Response, ureq::Error>>(mut call: F) -> Result<Response, ErrorImpl> {
     retry::retry(backoff(), || {
         let resp = call();
-        if resp.ok() {
-            return OperationResult::Ok(resp);
+        return match resp {
+            Ok(resp) => {
+                OperationResult::Ok(resp)
+            }
+            Err(err) if err.kind() == ErrorKind::Dns => {
+                OperationResult::Retry(ErrorImpl::Ureq(err))
+            }
+            Err(err) => {
+                OperationResult::Err(ErrorImpl::Ureq(err))
+            }
         }
-        let err = ErrorImpl::from_resp("", &resp);
 
-        // We consider failure to lookup to be retryable
-        if let Some(ureq::Error::DnsFailed(_)) = resp.synthetic_error() {
-            OperationResult::Retry(err)
-        } else if resp.server_error() {
-            // Server errors might be transient
-            OperationResult::Retry(err)
-        } else {
-            OperationResult::Err(err)
-        }
     }).map_err(unwrap_inner)
 }

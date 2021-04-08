@@ -12,6 +12,7 @@ use rpmrepo::{
     modules::Chunk,
 };
 use retry::OperationResult;
+use rustls::ClientConfig;
 
 const PACKAGE_PATH: &[&str] = &["package"];
 const UPDATE_PATH: &[&str] = &["update"];
@@ -19,7 +20,6 @@ const BUFFER_SIZE: usize = 1024 * 1024;
 
 pub struct Syncer {
     base: String,
-    cert_config: Arc<rustls::ClientConfig>,
     agent: ureq::Agent,
 }
 
@@ -30,11 +30,14 @@ impl Syncer {
             base.push('/');
         }
 
-        let agent = ureq::Agent::new();
+        let cert_config = Arc::new(cfg);
+
+        let agent = ureq::AgentBuilder::new()
+            .tls_config(cert_config);
+
         Self {
             base,
-            cert_config: Arc::new(cfg),
-            agent,
+            agent: agent.build(),
         }
     }
 
@@ -43,7 +46,6 @@ impl Syncer {
 
         let resp = retry_call(|| {
             self.agent.get(&url)
-                .set_tls_config(self.cert_config.clone())
                 .call()
         })?;
 
@@ -95,7 +97,6 @@ impl Syncer {
 
         let resp = retry_call(|| {
             self.agent.get(&url)
-                .set_tls_config(self.cert_config.clone())
                 .call()
         })?;
 
@@ -124,7 +125,6 @@ impl Syncer {
         let url = format!("{}{}", &self.base, data.location.href);
         let resp = retry_call(|| {
             self.agent.get(&url)
-                .set_tls_config(self.cert_config.clone())
                 .call()
         })?;
 
@@ -137,11 +137,26 @@ impl Syncer {
 }
 
 pub trait SyncTarget {
+
     fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD);
 
     fn on_package(&mut self, p: Package);
     fn on_update(&mut self, up: Update);
     fn on_module_chunk(&mut self, chunk: Chunk);
+}
+
+
+pub fn default_certs() -> ClientConfig {
+    let mut cert = rustls::ClientConfig::default();
+    for f in std::fs::read_dir("/etc/ssl/certs/").unwrap() {
+        let f = f.unwrap();
+        if f.path().extension().and_then(|s| s.to_str()) == Some("crt") {
+            if let Ok(cert_file) = std::fs::File::open(f.path()) {
+                cert.root_store.add_pem_file(&mut BufReader::new(cert_file)).unwrap();
+            }
+        }
+    }
+    return cert;
 }
 
 #[test]
@@ -151,7 +166,7 @@ fn test_sync() {
     }
     impl SyncTarget for DummyTarget {
         fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD) {
-            println!("{:?}", md);
+            println!("Metadata {:?}", md);
             if self.last_rev < md.revision {
                 syncer.sync_primary_streaming(self, &md).unwrap();
                 if let Err(err) = syncer.sync_updateinfo_streaming(self, &md) {
@@ -169,7 +184,7 @@ fn test_sync() {
         }
 
         fn on_package(&mut self, p: Package) {
-            println!("Downloaded  package  {:?}", p);
+            println!("Downloaded package  {:?}", p);
         }
 
         fn on_update(&mut self, up: Update) {
@@ -181,15 +196,8 @@ fn test_sync() {
         }
     }
 
-    let mut cert = rustls::ClientConfig::default();
-    for f in std::fs::read_dir("/etc/ssl/certs/").unwrap() {
-        let f = f.unwrap();
-        if f.path().extension().and_then(|s| s.to_str()) == Some("crt") {
-            if let Ok(cert_file) = std::fs::File::open(f.path()) {
-                cert.root_store.add_pem_file(&mut BufReader::new(cert_file)).unwrap();
-            }
-        }
-    }
+    let mut cert = default_certs();
+
     let syncer = Syncer::new(cert, "https://dl.yarnpkg.com/rpm/");
     syncer.sync_md(&mut DummyTarget {
         last_rev: 0

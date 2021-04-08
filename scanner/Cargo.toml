@@ -1,0 +1,42 @@
+[package]
+name = "reposcanner"
+version = "0.1.0"
+authors = ["Michal Hornicky <mhornick@redhat.com>"]
+edition = "2018"
+description = "Library to perform fast & lightweight syncing of RPM repositories"
+repository = "https://github.com/semtexzv/rpmtools.git"
+homepage = "https://github.com/semtexzv/rpmtools.git"
+documentation = "https://docs.rs/reposcanner"
+keywords = ["yum", "dnf", "rpm", "repository"]
+license = "MIT"
+
+[dependencies.serde]
+version = "*"
+features = ["derive"]
+
+[dependencies.json]
+version = "*"
+package = "serde_json"
+
+[dependencies.bindb]
+version = "0.0.3"
+path = "../bindb"
+
+[dependencies.rpmrepo]
+version = "0.0.3"
+path = "../repo"
+
+[dependencies.rpmsync]
+version = "0.0.3"
+path = "../sync"
+
+[dependencies]
+log = "0.4.14"
+env_logger = "0.8.3"
+anyhow = "1.0.40"
+serde_with = "1.8.0"
+itertools = "0.10.0"
+
+r2d2 = "0.8.9"
+r2d2_sqlite = "0.17.0"
+rusqlite =  { version = "0.24.0", features = ["bundled"] }

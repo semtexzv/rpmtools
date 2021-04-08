@@ -1,2 +1,2 @@
 [workspace]
-members = ["repo", "sync", "bindb"]
+members = ["repo", "sync", "bindb", "scanner"]
