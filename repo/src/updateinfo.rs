@@ -76,4 +76,7 @@ pub struct Package {
     pub version: String,
     pub release: String,
     pub arch: String,
+
+    pub src: String,
+    pub filename: String,
 }

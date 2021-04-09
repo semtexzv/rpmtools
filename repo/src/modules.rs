@@ -78,6 +78,6 @@ pub struct ModuleMDData {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DefaultsData {
     pub module: String,
-    pub stream: String,
+    pub stream: Option<String>,
     pub profiles: HashMap<String, Vec<String>>,
 }

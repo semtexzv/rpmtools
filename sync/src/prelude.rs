@@ -101,6 +101,9 @@ pub fn retry_call<F: FnMut() -> Result<Response, ureq::Error>>(mut call: F) -> R
             Err(err) if err.kind() == ErrorKind::Dns => {
                 OperationResult::Retry(ErrorImpl::Ureq(err))
             }
+            Err(err) if err.kind() == ErrorKind::Io => {
+                OperationResult::Err(ErrorImpl::Ureq(err))
+            }
             Err(err) => {
                 OperationResult::Err(ErrorImpl::Ureq(err))
             }

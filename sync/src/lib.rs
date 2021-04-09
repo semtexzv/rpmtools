@@ -41,7 +41,7 @@ impl Syncer {
         }
     }
 
-    pub fn sync_md(&self, target: &mut dyn SyncTarget) -> Result<()> {
+    pub fn sync_md(&self, target: &mut dyn MetadataTarget) -> Result<()> {
         let url = format!("{}repodata/repomd.xml", &self.base);
 
         let resp = retry_call(|| {
@@ -56,7 +56,7 @@ impl Syncer {
         Ok(())
     }
 
-    pub fn sync_primary_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
+    pub fn sync_primary_streaming(&self, target: &mut dyn PackageTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading primary");
         let mut action = |p| {
             target.on_package(p);
@@ -71,7 +71,7 @@ impl Syncer {
         Ok(())
     }
 
-    pub fn sync_updateinfo_streaming(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
+    pub fn sync_updateinfo_streaming(&self, target: &mut dyn UpdateTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading updateinfo");
         let mut action = |p| {
             target.on_update(p);
@@ -87,7 +87,7 @@ impl Syncer {
         Ok(())
     }
 
-    pub fn sync_modules(&self, target: &mut dyn SyncTarget, md: &RepoMD) -> Result<()> {
+    pub fn sync_modules(&self, target: &mut dyn ModuleTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading modules");
         let data = if let Some(data) = md.find_item(Type::Modules) {
             data
@@ -136,15 +136,21 @@ impl Syncer {
     }
 }
 
-pub trait SyncTarget {
-
+pub trait MetadataTarget {
     fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD);
-
-    fn on_package(&mut self, p: Package);
-    fn on_update(&mut self, up: Update);
-    fn on_module_chunk(&mut self, chunk: Chunk);
 }
 
+pub trait PackageTarget {
+    fn on_package(&mut self, p: Package);
+}
+
+pub trait UpdateTarget {
+    fn on_update(&mut self, up: Update);
+}
+
+pub trait ModuleTarget {
+    fn on_module_chunk(&mut self, chunk: Chunk);
+}
 
 pub fn default_certs() -> ClientConfig {
     let mut cert = rustls::ClientConfig::default();
