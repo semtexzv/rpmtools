@@ -13,6 +13,7 @@ use rpmrepo::{
 };
 use retry::OperationResult;
 use rustls::ClientConfig;
+use std::time::Duration;
 
 const PACKAGE_PATH: &[&str] = &["package"];
 const UPDATE_PATH: &[&str] = &["update"];
@@ -33,7 +34,9 @@ impl Syncer {
         let cert_config = Arc::new(cfg);
 
         let agent = ureq::AgentBuilder::new()
-            .tls_config(cert_config);
+            .tls_config(cert_config)
+            .max_idle_connections(8)
+            .max_idle_connections_per_host(2).timeout_connect(Duration::from_secs(1));
 
         Self {
             base,
@@ -56,7 +59,7 @@ impl Syncer {
         Ok(())
     }
 
-    pub fn sync_primary_streaming(&self, target: &mut dyn PackageTarget, md: &RepoMD) -> Result<()> {
+    pub fn sync_packages_streaming(&self, target: &mut dyn PackageTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading primary");
         let mut action = |p| {
             target.on_package(p);
@@ -68,10 +71,11 @@ impl Syncer {
         if let None = self.sync_xml_streaming(md, Type::Primary, seed)? {
             eprintln!("Missing primary")
         }
+        target.done();
         Ok(())
     }
 
-    pub fn sync_updateinfo_streaming(&self, target: &mut dyn UpdateTarget, md: &RepoMD) -> Result<()> {
+    pub fn sync_updates_streaming(&self, target: &mut dyn UpdateTarget, md: &RepoMD) -> Result<()> {
         println!("Downloading updateinfo");
         let mut action = |p| {
             target.on_update(p);
@@ -123,10 +127,12 @@ impl Syncer {
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
+        println!("Call");
         let resp = retry_call(|| {
             self.agent.get(&url)
                 .call()
         })?;
+        println!("Got resp");
 
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
         let reader = BufReader::with_capacity(BUFFER_SIZE, decomp);
@@ -142,10 +148,12 @@ pub trait MetadataTarget {
 
 pub trait PackageTarget {
     fn on_package(&mut self, p: Package);
+    fn done(&mut self);
 }
 
 pub trait UpdateTarget {
     fn on_update(&mut self, up: Update);
+    fn done(&mut self);
 }
 
 pub trait ModuleTarget {
@@ -174,8 +182,8 @@ fn test_sync() {
         fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD) {
             println!("Metadata {:?}", md);
             if self.last_rev < md.revision {
-                syncer.sync_primary_streaming(self, &md).unwrap();
-                if let Err(err) = syncer.sync_updateinfo_streaming(self, &md) {
+                syncer.sync_packages_streaming(self, &md).unwrap();
+                if let Err(err) = syncer.sync_updates_streaming(self, &md) {
                     if let ErrorImpl::TypeNotFound(typ) = *err {
                         println!("Did not find : {:?}", typ);
                     }

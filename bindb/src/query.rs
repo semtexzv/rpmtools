@@ -1,6 +1,6 @@
 use crate::{Database, Table};
 
-
+/*
 pub struct Query<T, F> {
     iter: crate::Iter<T>,
     filter: F,
@@ -32,3 +32,4 @@ impl<T, F> Iterator for Query<T, F>
         }
     }
 }
+*/
