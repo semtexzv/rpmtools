@@ -6,16 +6,15 @@ use rpmsync::Syncer;
 use rpmrepo::repomd::RepoMD;
 use rpmrepo::primary::Package;
 use rpmrepo::modules::Chunk;
-use rpmrepo::updateinfo::{Update, Date};
-use bindb::{Database, Table, FieldRef, Index, Indices, ROps, RwOps};
+use rpmrepo::updateinfo::{Update};
+use bindb::{Database, index, Table, FieldRef, Index, ROps, RwOps};
 
 use anyhow::*;
 use serde::{Serialize, Deserialize};
 use itertools::Itertools;
-use rayon::prelude::{ParallelBridge, ParallelIterator, IntoParallelRefIterator};
-use rpmrepo::repomd::Type::Modules;
+use rayon::prelude::{ParallelBridge, ParallelIterator};
 use uuid::Uuid;
-
+use std::collections::HashMap;
 
 pub struct Scanner {
     db: Database
@@ -42,21 +41,12 @@ impl Table for Repo {
     type Indices = (RepoUrl, );
 }
 
-pub struct RepoUrl {}
-
-impl Index<Repo> for RepoUrl {
-    const NAME: &'static str = "repo_url";
-    type Key = String;
-
-    fn key() -> FieldRef<Repo, Self::Key> {
-        bindb::field_ref_of!(Repo => url)
-    }
-}
+index!(RepoUrl, String, Repo => url);
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct Nevra {
     pub name: String,
-    pub epoch: String,
+    pub epoch: u32,
     pub ver: String,
     pub rel: String,
     pub arch: String,
@@ -73,24 +63,13 @@ impl Table for Pkg {
     const VERSION: u8 = 0;
     type Key = Uuid;
 
-
     fn key() -> FieldRef<Self, Self::Key> {
         bindb::field_ref_of!(Pkg => id)
     }
 
     type Indices = (PkgNevraIdx, );
 }
-
-pub struct PkgNevraIdx {}
-
-impl Index<Pkg> for PkgNevraIdx {
-    const NAME: &'static str = "package_nevra";
-    type Key = Nevra;
-
-    fn key() -> FieldRef<Pkg, Self::Key> {
-        bindb::field_ref_of!(Pkg => nevra)
-    }
-}
+index!(PkgNevraIdx, Nevra, Pkg => nevra);
 
 #[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct PkgRepoId {
@@ -134,15 +113,24 @@ impl Table for Advisory {
     type Indices = (AdvisoryNameIdx, );
 }
 
+index!(AdvisoryNameIdx, String, Advisory => name);
 
-pub struct AdvisoryNameIdx {}
+#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
+pub struct AdvisoryRepoId {
+    pub adv_id: Uuid,
+    pub repo_id: Uuid,
+}
 
-impl Index<Advisory> for AdvisoryNameIdx {
-    const NAME: &'static str = "advisory_name";
-    type Key = String;
+#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
+pub struct AdvisoryRepo(AdvisoryRepoId);
 
-    fn key() -> FieldRef<Advisory, Self::Key> {
-        bindb::field_ref_of!(Advisory => name)
+impl Table for AdvisoryRepo {
+    const NAME: &'static str = "advisory_repo";
+    const VERSION: u8 = 0;
+    type Key = AdvisoryRepoId;
+
+    fn key() -> FieldRef<Self, Self::Key> {
+        bindb::field_ref_of!(AdvisoryRepo => 0)
     }
 }
 
@@ -150,6 +138,7 @@ impl Index<Advisory> for AdvisoryNameIdx {
 pub struct PkgAdvisoryId {
     pub pkg_id: Uuid,
     pub adv_id: Uuid,
+    pub stream_id: Option<Uuid>,
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
@@ -167,11 +156,16 @@ impl Table for PkgAdvisory {
 
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
+pub struct ModuleAttrs {
+    repo_id: Uuid,
+    name: String,
+    arch: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct Module {
     id: Uuid,
-    name: String,
-    repo_id: Uuid,
-    arch: String,
+    attrs: ModuleAttrs,
 }
 
 impl Table for Module {
@@ -182,19 +176,28 @@ impl Table for Module {
     fn key() -> FieldRef<Self, Self::Key> {
         bindb::field_ref_of!(Module => id)
     }
+
+    type Indices = (ModuleAttrsIdx, );
 }
+
+index!(ModuleAttrsIdx, ModuleAttrs, Module => attrs);
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct ModuleStream {
     id: Uuid,
+    attrs: StreamAttrs,
+    default: bool,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
+pub struct StreamAttrs {
     module_id: Uuid,
     name: String,
     version: u64,
     context: String,
-    default: bool,
-    artifacts: Vec<ModuleArtifact>,
-    profiles: Vec<ModuleProfile>,
 }
+
+index!(StreamAttrsIdx, StreamAttrs, ModuleStream => attrs);
 
 impl Table for ModuleStream {
     const NAME: &'static str = "module_stream";
@@ -204,6 +207,8 @@ impl Table for ModuleStream {
     fn key() -> FieldRef<Self, Self::Key> {
         bindb::field_ref_of!(ModuleStream => id)
     }
+
+    type Indices = (StreamAttrsIdx, );
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
@@ -225,9 +230,8 @@ pub struct ModuleProfileArtifact {
 
 impl Scanner {
     pub fn new() -> Result<Self> {
-        std::fs::create_dir_all("data").unwrap();
         Ok(Scanner {
-            db: Database::open("data")
+            db: Database::open("data.mdbx")
                 .register::<Repo>()
                 .register::<Pkg>()
                 .register::<Advisory>()
@@ -235,14 +239,13 @@ impl Scanner {
                 .register::<ModuleStream>()
                 .register::<PkgAdvisory>()
                 .register::<PkgRepo>()
+                .register::<AdvisoryRepo>()
             ,
         })
     }
     pub fn load_repolist(&mut self, rl: repolist::Repolist) -> Result<()> {
-        println!("Pkg: {:?}", self.db.in_tx(|tx| tx.scan::<Pkg, _>(..).count()));
-
         for (_p, prod) in rl.iter().flat_map(|p| &p.products) {
-            for (label, cs) in &prod.content_sets {
+            for (_label, cs) in &prod.content_sets {
                 let urls = cs.baseurl.iter().cloned();
                 let urls = urls.cartesian_product(cs.basearch.iter().map(Some).chain(None));
                 let urls = urls.cartesian_product(cs.releasever.iter().map(Some).chain(None));
@@ -262,13 +265,9 @@ impl Scanner {
                     }
                 }).collect::<Vec<_>>();
 
-                println!("Repos: {:?}", repos);
                 self.db.in_wtx(|tx| {
                     for mut r in repos {
-                        if let Some(old) = tx.get_by::<Repo, RepoUrl>(&r.url) {
-                            r.id = old.id;
-                        }
-                        tx.put(&r);
+                        tx.put_by::<RepoUrl>(&mut r);
                     }
                 });
             }
@@ -279,22 +278,28 @@ impl Scanner {
     pub fn sync(&mut self) -> Result<()> {
         let repos = {
             self.db.in_tx(|tx| {
-                println!("Package: {:?}", tx.scan::<Pkg, _>(..).count());
-                println!("Advs: {:?}", tx.scan::<Advisory, _>(..).count());
-                println!("Repos: {:?}", tx.scan::<Repo, _>(..).count());
-                println!("PKG-Advs: {:?}", tx.scan::<PkgAdvisory, _>(..).count());
-                println!("PKG-repos: {:?}", tx.scan::<PkgRepo, _>(..).count());
-                println!("Modules: {:?}", tx.scan::<Module, _>(..).count());
-                println!("Streams: {:?}", tx.scan::<ModuleStream, _>(..).count());
-                tx.scan::<Repo, _>(..).collect::<Vec<_>>()
+                println!("Package: {:?}", tx.scan::<Pkg>().count());
+                println!("Advs: {:?}", tx.scan::<Advisory>().count());
+                println!("Repos: {:?}", tx.scan::<Repo>().count());
+                println!("PKG-Advs: {:?}", tx.scan::<PkgAdvisory>().count());
+                println!("PKG-repos: {:?}", tx.scan::<PkgRepo>().count());
+                println!("adv-repos: {:?}", tx.scan::<AdvisoryRepo>().count());
+                println!("Modules: {:?}", tx.scan::<Module>().count());
+                println!("Streams: {:?}", tx.scan::<ModuleStream>().count());
+                for m in tx.scan::<ModuleStream>() {
+                    println!("streams: {:?}", m);
+                }
+                tx.scan::<Repo>().collect::<Vec<_>>()
             })
         };
 
         repos.into_iter().par_bridge().for_each(|r| {
+            let mut db = self.db.clone();
             match self.load_repo(&r) {
-                Ok(o) => {}
+                Ok(_) => {}
                 Err(e) => {
-                    println!("Could not sync repo : {:?}", r.url);
+                    println!("Could not sync repo : {:?} : {}", r.url, e);
+                    db.in_wtx(|w| w.delete::<Repo>(&r.id));
                 }
             }
         });
@@ -303,7 +308,7 @@ impl Scanner {
     }
 
     pub fn load_repo(&self, repo: &Repo) -> Result<()> {
-        let syncer = rpmsync::Syncer::new(rpmsync::default_certs(), &format!("{}/", repo.url));
+        let syncer = rpmsync::Syncer::new(rpmsync::default_certs(), 32, &format!("{}/", repo.url));
         let mut scanner = RepoScanner {
             repo: repo.clone(),
             db: self.db.clone(),
@@ -319,23 +324,22 @@ pub struct RepoScanner {
 
 impl rpmsync::MetadataTarget for RepoScanner {
     fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD) {
-        let old = self.db.in_tx(|tx| tx.get_by::<Repo, RepoUrl>(&self.repo.url));
+        let old = self.db.in_tx(|tx| tx.get_by::<RepoUrl>(&self.repo.url));
 
         if old.as_ref().and_then(|r| r.revision) < Some(md.revision as _) {
             println!("{:?} is outdated, syncing", self.repo.url);
 
-            if let Err(e) = syncer.sync_modules(&mut ModuleScanner { base: self, defaults: vec![] }, &md) {
-                println!("Err :{:?}", e);
-            }
             syncer.sync_packages_streaming(&mut PackageScanner { base: self, packages: vec![] }, &md);
             syncer.sync_updates_streaming(&mut UpdateScanner { base: self, advs: vec![] }, &md);
+            syncer.sync_modules(&mut ModuleScanner { base: self, defaults: HashMap::new(), module_ids: HashMap::new() }, &md);
 
             self.repo.id = old.map(|v| v.id).unwrap_or_else(|| self.db.generate_id());
             self.repo.revision = Some(md.revision as _);
 
-            let mut tx = self.db.wtx();
-            tx.put(&self.repo);
-            tx.commit();
+            let repo = self.repo.clone();
+            self.db.in_wtx(|tx| {
+                tx.put(&repo);
+            });
         } else {
             println!("{:?} is up to date", self.repo.url);
         }
@@ -368,12 +372,8 @@ impl<'a> rpmsync::PackageTarget for PackageScanner<'a> {
         let pkgs = std::mem::replace(&mut self.packages, vec![]);
         self.base.db.in_wtx(|tx| {
             for mut pkg in pkgs {
-                if let Some(old_pkg) = tx.get_by::<Pkg, PkgNevraIdx>(&pkg.nevra) {
-                    pkg.id = old_pkg.id;
-                }
-
+                tx.put_by::<PkgNevraIdx>(&mut pkg);
                 tx.put(&PkgRepo(PkgRepoId { pkg_id: pkg.id, repo_id }));
-                tx.put(&pkg);
             }
         });
     }
@@ -381,12 +381,12 @@ impl<'a> rpmsync::PackageTarget for PackageScanner<'a> {
 
 pub struct UpdateScanner<'a> {
     base: &'a mut RepoScanner,
-    advs: Vec<Advisory>,
+    advs: Vec<(Advisory, Vec<(Pkg, Option<rpmrepo::updateinfo::Module>)>)>,
 }
 
 impl<'a> rpmsync::UpdateTarget for UpdateScanner<'a> {
-    fn on_update(&mut self, mut up: Update) {
-        let mut adv = Advisory {
+    fn on_update(&mut self, up: Update) {
+        let adv = Advisory {
             id: Uuid::new_v4(),
             name: up.id.clone(),
             desc: up.description,
@@ -395,67 +395,140 @@ impl<'a> rpmsync::UpdateTarget for UpdateScanner<'a> {
             issued: up.issued.date,
             updated: up.updated.date,
         };
-        self.advs.push(adv);
 
+        let mut pkgs = vec![];
+        let collections = up.pkglist
+            .into_iter()
+            .flat_map(|i| {
+                i.collection.into_iter()
+            });
+
+        for mut col in collections {
+            let m = col.module.take();
+            for p in col.package {
+                let p = Pkg {
+                    id: Uuid::new_v4(),
+                    nevra: Nevra {
+                        name: p.name,
+                        epoch: p.epoch,
+                        ver: p.version,
+                        rel: p.release,
+                        arch: p.arch,
+                    },
+                };
+                pkgs.push((p, m.clone()));
+            }
+        }
+        self.advs.push((adv, pkgs));
     }
 
     fn done(&mut self) {
         let repo_id = self.base.repo.id;
         let advisories = std::mem::replace(&mut self.advs, vec![]);
         self.base.db.in_wtx(|tx| {
+            for (mut adv, pkgs) in advisories {
+                tx.put_by::<AdvisoryNameIdx>(&mut adv);
+                tx.put(&AdvisoryRepo(AdvisoryRepoId { adv_id: adv.id, repo_id }));
 
-            for mut adv in advisories {
-                println!("adv: {:?}", adv);
-                if let Some(old) = tx.get_by::<Advisory, AdvisoryNameIdx>(&adv.name) {
-                    adv.id = old.id;
+                for (mut pkg, module) in pkgs {
+                    let stream_id = if let Some(mod_data) = module {
+                        let mut newmod = Module {
+                            id: Uuid::new_v4(),
+                            attrs: ModuleAttrs {
+                                name: mod_data.name,
+                                arch: mod_data.arch,
+                                repo_id,
+                            },
+                        };
+
+                        tx.put_by::<ModuleAttrsIdx>(&mut newmod);
+
+                        let mut stream = ModuleStream {
+                            id: Uuid::new_v4(),
+                            attrs: StreamAttrs {
+                                module_id: newmod.id,
+                                name: mod_data.stream,
+                                version: mod_data.version,
+                                context: mod_data.context,
+                            },
+                            // TODO: Update default from proper location
+                            default: false,
+                        };
+                        tx.put_by::<StreamAttrsIdx>(&mut stream);
+                        Some(stream.id)
+                    } else { None };
+
+                    tx.put_by::<PkgNevraIdx>(&mut pkg);
+                    tx.put(&PkgRepo(PkgRepoId { pkg_id: pkg.id, repo_id }));
+                    tx.put(&PkgAdvisory(PkgAdvisoryId { pkg_id: pkg.id, adv_id: adv.id, stream_id }));
                 }
-                tx.put(&adv);
             }
         })
     }
 }
 
+#[allow(dead_code)]
 pub struct ModuleScanner<'a> {
     base: &'a mut RepoScanner,
-    defaults: Vec<String>,
+    module_ids: HashMap<String, Uuid>,
+    defaults: HashMap<String, String>,
 }
 
 impl rpmsync::ModuleTarget for ModuleScanner<'_> {
     fn on_module_chunk(&mut self, _chunk: Chunk) {
         match _chunk {
-            Chunk::ModuleMd(md) => {
-                let mut newmod = Module {
-                    id: self.base.db.generate_id(),
-                    repo_id: self.base.repo.id,
-                    arch: md.arch,
-                    name: md.name,
+            Chunk::ModuleMd(_md) => {
+                let mut module = Module {
+                    id: Uuid::new_v4(),
+                    attrs: ModuleAttrs {
+                        name: _md.name,
+                        repo_id: self.base.repo.id,
+                        arch: _md.arch,
+                    },
                 };
 
-                /*
-                if let Some(id) = self.base.db
-                    .query::<Module, _>(|m| {
-                        m.repo_id == newmod.repo_id && m.arch == newmod.arch && m.name == newmod.name
-                    })
-                    .map(|m| m.id).next() {
-                    newmod.id = id
-                };
-
-                let stream = ModuleStream {
-                    id: self.base.db.generate_id(),
-                    module_id: newmod.id,
-                    name: md.stream,
-                    version: md.version,
-                    context: md.context,
+                let mut stream = ModuleStream {
+                    id: Uuid::new_v4(),
+                    attrs: StreamAttrs {
+                        name: _md.stream,
+                        context: _md.context,
+                        version: _md.version,
+                        module_id: Uuid::new_v4(),
+                    },
+                    // TODO: Implement defaults
                     default: false,
-                    artifacts: vec![],
-                    profiles: vec![],
                 };
-                self.base.db.put(&newmod);
-                self.base.db.put(&stream);
 
-                 */
+                self.base.db.in_wtx(|tx| {
+                    tx.put_by::<ModuleAttrsIdx>(&mut module);
+                    stream.attrs.module_id = module.id;
+                    tx.put_by::<StreamAttrsIdx>(&mut stream);
+                });
+                self.module_ids.insert(module.attrs.name.clone(), module.id);
             }
-            Chunk::Defaults(def) => {}
+            Chunk::Defaults(_def) => {
+                println!("Modulemd: {:?}", _def);
+                if let Some(default) = _def.stream {
+                    self.defaults.insert(_def.module, default);
+                }
+            }
+        }
+    }
+
+    fn done(&mut self) {
+        let module_ids = std::mem::replace(&mut self.module_ids, HashMap::new());
+        for (module, s) in std::mem::replace(&mut self.defaults, HashMap::new()) {
+            self.base.db.in_wtx(|mut tx| {
+                let streams = tx.scan().filter(|stream: &ModuleStream| {
+                    stream.attrs.module_id == *module_ids.get(&module).unwrap()
+                }).map(|stream| stream.clone()).collect::<Vec<_>>();
+
+                for mut stream in streams {
+                    stream.default = stream.attrs.name == *s;
+                    println!("Setting default: {:?} = {:?}", stream.attrs.name, stream.default);
+                    tx.put(&stream);
+                }
+            });
         }
     }
 }
@@ -463,7 +536,7 @@ impl rpmsync::ModuleTarget for ModuleScanner<'_> {
 
 fn main() -> Result<()> {
     env_logger::init();
-    rayon::ThreadPoolBuilder::new().num_threads(4).build_global().unwrap();
+    rayon::ThreadPoolBuilder::new().num_threads(32).build_global().unwrap();
     let mut scanner = Scanner::new()?;
     scanner.load_repolist(json::from_reader::<_, repolist::Repolist>(std::fs::File::open("./repolist.json")?)?)?;
     scanner.sync().unwrap();

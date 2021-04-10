@@ -33,8 +33,7 @@ pub struct Package {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialOrd, Ord, Eq, PartialEq)]
 pub struct PackageVersion {
-    // TODO: should be usize ?
-    pub epoch: String,
+    pub epoch: u32,
     pub ver: String,
     pub rel: String,
 

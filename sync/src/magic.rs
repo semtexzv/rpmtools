@@ -49,6 +49,7 @@ impl<'de, T: DeserializeSeed<'de>> Visitor<'de> for SeedField<T> {
     }
 }
 
+#[allow(dead_code)]
 /// Should we continue deserializing more items, or end with the response of [R]
 pub enum IterState<R> {
     Continue,

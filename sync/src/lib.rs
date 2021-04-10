@@ -25,7 +25,7 @@ pub struct Syncer {
 }
 
 impl Syncer {
-    pub fn new(cfg: rustls::ClientConfig, url: &str) -> Self {
+    pub fn new(cfg: rustls::ClientConfig, agents: usize, url: &str) -> Self {
         let mut base = url.to_string();
         if !base.ends_with('/') {
             base.push('/');
@@ -35,8 +35,8 @@ impl Syncer {
 
         let agent = ureq::AgentBuilder::new()
             .tls_config(cert_config)
-            .max_idle_connections(8)
-            .max_idle_connections_per_host(2).timeout_connect(Duration::from_secs(1));
+            .max_idle_connections(agents)
+            .max_idle_connections_per_host(agents).timeout_connect(Duration::from_secs(1));
 
         Self {
             base,
@@ -60,7 +60,6 @@ impl Syncer {
     }
 
     pub fn sync_packages_streaming(&self, target: &mut dyn PackageTarget, md: &RepoMD) -> Result<()> {
-        println!("Downloading primary");
         let mut action = |p| {
             target.on_package(p);
             IterState::Continue
@@ -76,7 +75,6 @@ impl Syncer {
     }
 
     pub fn sync_updates_streaming(&self, target: &mut dyn UpdateTarget, md: &RepoMD) -> Result<()> {
-        println!("Downloading updateinfo");
         let mut action = |p| {
             target.on_update(p);
             IterState::Continue
@@ -87,12 +85,11 @@ impl Syncer {
         if let None = self.sync_xml_streaming(md, Type::UpdateInfo, seed)? {
             eprintln!("Missing updateinfo")
         }
-
+        target.done();
         Ok(())
     }
 
     pub fn sync_modules(&self, target: &mut dyn ModuleTarget, md: &RepoMD) -> Result<()> {
-        println!("Downloading modules");
         let data = if let Some(data) = md.find_item(Type::Modules) {
             data
         } else { return Err(ErrorImpl::TypeNotFound(Type::Modules).boxed()); };
@@ -112,6 +109,7 @@ impl Syncer {
         for m in modules {
             target.on_module_chunk(m);
         }
+        target.done();
 
         Ok(())
     }
@@ -127,12 +125,10 @@ impl Syncer {
         };
 
         let url = format!("{}{}", &self.base, data.location.href);
-        println!("Call");
         let resp = retry_call(|| {
             self.agent.get(&url)
                 .call()
         })?;
-        println!("Got resp");
 
         let (decomp, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
         let reader = BufReader::with_capacity(BUFFER_SIZE, decomp);
@@ -158,6 +154,7 @@ pub trait UpdateTarget {
 
 pub trait ModuleTarget {
     fn on_module_chunk(&mut self, chunk: Chunk);
+    fn done(&mut self);
 }
 
 pub fn default_certs() -> ClientConfig {

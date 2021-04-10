@@ -65,14 +65,14 @@ pub struct Module {
     pub stream: String,
 
     pub arch: String,
-    pub version: String,
+    pub version: u64,
     pub context: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Package {
     pub name: String,
-    pub epoch: String,
+    pub epoch: u32,
     pub version: String,
     pub release: String,
     pub arch: String,
