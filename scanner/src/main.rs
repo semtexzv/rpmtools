@@ -1,232 +1,26 @@
 #![feature(const_raw_ptr_deref)]
 
 mod repolist;
+mod data;
 
 use rpmsync::Syncer;
 use rpmrepo::repomd::RepoMD;
 use rpmrepo::primary::Package;
 use rpmrepo::modules::Chunk;
 use rpmrepo::updateinfo::{Update};
-use bindb::{Database, index, Table, FieldRef, Index, ROps, RwOps};
-
 use anyhow::*;
-use serde::{Serialize, Deserialize};
 use itertools::Itertools;
 use rayon::prelude::{ParallelBridge, ParallelIterator};
 use uuid::Uuid;
 use std::collections::HashMap;
+use data::*;
+use bindb::{Database, RwOps, ROps};
+
 
 pub struct Scanner {
     db: Database
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct Repo {
-    pub id: Uuid,
-    pub url: String,
-    pub basearch: Option<String>,
-    pub releasever: Option<String>,
-    pub revision: Option<i32>,
-}
-
-impl Table for Repo {
-    const NAME: &'static str = "repo";
-    const VERSION: u8 = 0;
-    type Key = Uuid;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(Repo => id)
-    }
-
-    type Indices = (RepoUrl, );
-}
-
-index!(RepoUrl, String, Repo => url);
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct Nevra {
-    pub name: String,
-    pub epoch: u32,
-    pub ver: String,
-    pub rel: String,
-    pub arch: String,
-}
-
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct Pkg {
-    pub id: Uuid,
-    pub nevra: Nevra,
-}
-
-impl Table for Pkg {
-    const NAME: &'static str = "package";
-    const VERSION: u8 = 0;
-    type Key = Uuid;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(Pkg => id)
-    }
-
-    type Indices = (PkgNevraIdx, );
-}
-index!(PkgNevraIdx, Nevra, Pkg => nevra);
-
-#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct PkgRepoId {
-    pkg_id: Uuid,
-    repo_id: Uuid,
-}
-
-#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct PkgRepo(PkgRepoId);
-
-impl Table for PkgRepo {
-    const NAME: &'static str = "pkg_repo";
-    const VERSION: u8 = 0;
-    type Key = PkgRepoId;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(PkgRepo => 0)
-    }
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct Advisory {
-    pub id: Uuid,
-    pub r#type: String,
-    pub name: String,
-    pub summary: Option<String>,
-    pub desc: Option<String>,
-    pub issued: String,
-    pub updated: String,
-}
-
-impl Table for Advisory {
-    const NAME: &'static str = "advisory";
-    const VERSION: u8 = 0;
-    type Key = Uuid;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(Advisory => id)
-    }
-
-    type Indices = (AdvisoryNameIdx, );
-}
-
-index!(AdvisoryNameIdx, String, Advisory => name);
-
-#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct AdvisoryRepoId {
-    pub adv_id: Uuid,
-    pub repo_id: Uuid,
-}
-
-#[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct AdvisoryRepo(AdvisoryRepoId);
-
-impl Table for AdvisoryRepo {
-    const NAME: &'static str = "advisory_repo";
-    const VERSION: u8 = 0;
-    type Key = AdvisoryRepoId;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(AdvisoryRepo => 0)
-    }
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct PkgAdvisoryId {
-    pub pkg_id: Uuid,
-    pub adv_id: Uuid,
-    pub stream_id: Option<Uuid>,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct PkgAdvisory(PkgAdvisoryId);
-
-impl Table for PkgAdvisory {
-    const NAME: &'static str = "package_advisory";
-    const VERSION: u8 = 0;
-    type Key = PkgAdvisoryId;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(PkgAdvisory => 0)
-    }
-}
-
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct ModuleAttrs {
-    repo_id: Uuid,
-    name: String,
-    arch: String,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct Module {
-    id: Uuid,
-    attrs: ModuleAttrs,
-}
-
-impl Table for Module {
-    const NAME: &'static str = "module";
-    const VERSION: u8 = 0;
-    type Key = Uuid;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(Module => id)
-    }
-
-    type Indices = (ModuleAttrsIdx, );
-}
-
-index!(ModuleAttrsIdx, ModuleAttrs, Module => attrs);
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct ModuleStream {
-    id: Uuid,
-    attrs: StreamAttrs,
-    default: bool,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct StreamAttrs {
-    module_id: Uuid,
-    name: String,
-    version: u64,
-    context: String,
-}
-
-index!(StreamAttrsIdx, StreamAttrs, ModuleStream => attrs);
-
-impl Table for ModuleStream {
-    const NAME: &'static str = "module_stream";
-    const VERSION: u8 = 0;
-    type Key = Uuid;
-
-    fn key() -> FieldRef<Self, Self::Key> {
-        bindb::field_ref_of!(ModuleStream => id)
-    }
-
-    type Indices = (StreamAttrsIdx, );
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct ModuleArtifact {
-    pkg_id: Uuid,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct ModuleProfile {
-    name: String,
-    default: bool,
-    artifacts: Vec<ModuleProfileArtifact>,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
-pub struct ModuleProfileArtifact {
-    name: String,
-}
 
 impl Scanner {
     pub fn new() -> Result<Self> {
@@ -495,19 +289,19 @@ impl rpmsync::ModuleTarget for ModuleScanner<'_> {
                         version: _md.version,
                         module_id: Uuid::new_v4(),
                     },
-                    // TODO: Implement defaults
                     default: false,
                 };
 
                 self.base.db.in_wtx(|tx| {
                     tx.put_by::<ModuleAttrsIdx>(&mut module);
                     stream.attrs.module_id = module.id;
-                    tx.put_by::<StreamAttrsIdx>(&mut stream);
+                    tx.put_by_with::<StreamAttrsIdx, _>(&mut stream, |old, new| {
+                        new.default = old.default
+                    });
                 });
                 self.module_ids.insert(module.attrs.name.clone(), module.id);
             }
             Chunk::Defaults(_def) => {
-                println!("Modulemd: {:?}", _def);
                 if let Some(default) = _def.stream {
                     self.defaults.insert(_def.module, default);
                 }
@@ -518,14 +312,13 @@ impl rpmsync::ModuleTarget for ModuleScanner<'_> {
     fn done(&mut self) {
         let module_ids = std::mem::replace(&mut self.module_ids, HashMap::new());
         for (module, s) in std::mem::replace(&mut self.defaults, HashMap::new()) {
-            self.base.db.in_wtx(|mut tx| {
+            self.base.db.in_wtx(|tx| {
                 let streams = tx.scan().filter(|stream: &ModuleStream| {
                     stream.attrs.module_id == *module_ids.get(&module).unwrap()
                 }).map(|stream| stream.clone()).collect::<Vec<_>>();
 
                 for mut stream in streams {
                     stream.default = stream.attrs.name == *s;
-                    println!("Setting default: {:?} = {:?}", stream.attrs.name, stream.default);
                     tx.put(&stream);
                 }
             });

@@ -29,3 +29,4 @@ impl-trait-for-tuples = "0.2.1"
 rayon = "1.5.0"
 heed = { version = "0.11.0", default-features= false, features = ["serde-json", "serde-bincode", "lmdb"] }
 uuid = { version = "0.8.2", features = ["v4", "serde"] }
+tuples = "1.4.1"

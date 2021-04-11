@@ -8,7 +8,6 @@ use std::collections::{HashMap};
 use heed::{RoTxn, RwTxn};
 use heed::types::{SerdeBincode, SerdeJson};
 
-
 type KeyType<T> = SerdeBincode<<T as Table>::Key>;
 type ValType<T> = SerdeJson<T>;
 
@@ -17,8 +16,6 @@ type ValType<T> = SerdeJson<T>;
 pub trait Table: Serialize + DeserializeOwned {
     /// Name of the table. This should be unique within database
     const NAME: &'static str;
-    /// Version of the schema - This is here for future support for migrations of
-    const VERSION: u8;
 
     /// Primary key of the table. If this type is sane, then it should have same ordering
     /// in rust as it does in its bincode serialized form. Simply - Fields sorted in-order
@@ -38,8 +35,23 @@ pub trait Index {
 }
 
 #[macro_export]
+macro_rules! table {
+    ($name:ty $(=> $p:tt)+ ($type:ty) $(,$idx:ty)*) => {
+        impl Table for $name {
+            const NAME: &'static str = stringify!($name);
+            type Key = $type;
+            type Indices = ($($idx,)*);
+
+            fn key() -> FieldRef<$name, Self::Key> {
+                $crate::field_ref_of!($name $(=> $p)+)
+            }
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! index {
-    ($name:ident, $type:ty, $src:ty $(=> $p:ident)+) => {
+    ($name:ident, $src:ty $(=> $p:ident)+($type:ty)) => {
         pub struct $name {}
         impl Index for $name {
             type Table = $src;
@@ -235,8 +247,16 @@ pub trait RwOps<'a>: ROps {
     fn put_by<I: Index>(&mut self, v: &mut I::Table)
         where <<I as Index>::Table as Table>::Key: Clone
     {
-        if let Some(old) = self.get_by::<I>(&I::key().get(v)) {
+        self.put_by_with::<I, _>(v, |old, v| {
             *I::Table::key().get_mut(v) = I::Table::key().get(&old).clone();
+        })
+    }
+    /// Overwrite old entry using an index as key,
+    fn put_by_with<I, F>(&mut self, v: &mut I::Table, patch: F)
+        where I: Index, F: FnOnce(&I::Table, &mut I::Table)
+    {
+        if let Some(old) = self.get_by::<I>(&I::key().get(v)) {
+            patch(&old, v);
         }
         self.put(v)
     }
@@ -296,79 +316,31 @@ impl<'a> RwOps<'a> for Wtx<'a> {
 
 #[test]
 fn test_simple() {
+    use serde::{Serialize, Deserialize};
+    use crate::{ROps, RwOps};
+
     #[derive(Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
-    struct Key(usize, usize);
+    struct Item(usize, usize);
+    table!(Item => 0(usize));
 
-    impl Table for Key {
-        const NAME: &'static str = "key";
-        const VERSION: u8 = 0;
-        type Key = usize;
-
-        fn key() -> FieldRef<Self, Self::Key> {
-            field_ref_of!(Self => 0)
-        }
-    }
-
-    let _ = std::fs::remove_dir_all("./tmp/db/");
-    std::fs::create_dir_all("./tmp/db/");
-    let mut db = Database::open("./tmp/db/").register::<Key>();
+    let mut db = Database::open("/tmp/db").register::<Item>();
     {
         let mut db = db.wtx();
-        db.put(&Key(0, 0));
-        db.put(&Key(0, 0));
-        db.put(&Key(1, 0));
-        db.put(&Key(2, 0));
-        db.put(&Key(4, 0));
+        db.put(&Item(0, 0));
+        db.put(&Item(1, 0));
+        db.put(&Item(2, 0));
+        db.put(&Item(4, 0));
+        db.put(&Item(0, 0));
         db.commit();
     }
-    let db = db.tx();
-    assert_eq!(db.get(&2), Some(Key(2, 0)));
+    let mut db = db.wtx();
+    assert_eq!(db.get(&2), Some(Item(2, 0)));
 
-    let range = db.scan::<Key, _>(..);
+    let range = db.scan::<Item>();
     assert_eq!(range.count(), 4);
 
-    let range = db.scan::<Key, _>(&0..&2);
-    assert_eq!(range.count(), 2);
+    db.delete::<Item>(&0);
+    assert_eq!( db.scan::<Item>().count(), 3);
+
+
 }
-
-/*
-#[test]
-fn test_order() {
-    #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
-    struct Key(String, String);
-
-    impl Table for Key {
-        const NAME: &'static str = "key2";
-        const VERSION: u8 = 0;
-        type Key = String;
-
-        fn key() -> FieldRef<Self, Self::Key> {
-            field_ref_of!(Self => 0)
-        }
-    }
-    let _ = std::fs::remove_dir_all("/tmp/db.test2");
-    let db = Database::open("/tmp/db.test2");
-
-    let empty = "".to_string();
-    let a = "a".to_string();
-    let b = "b".to_string();
-    let ab = "ab".to_string();
-    let abc = "abc".to_string();
-
-    assert!(db.put(&Key(empty.clone(), empty.clone())).is_none());
-    assert!(db.put(&Key(empty.clone(), empty.clone())).is_some());
-
-    assert!(db.put(&Key(a.clone(), empty.clone())).is_none());
-    assert!(db.put(&Key(b.clone(), empty.clone())).is_none());
-    assert!(db.put(&Key(b.clone(), abc.clone())).is_none());
-    assert!(db.put(&Key(ab.clone(), empty.clone())).is_none());
-    assert!(db.put(&Key(a.clone(), abc.clone())).is_none());
-
-    let all = db.scan::<Key>().collect::<Vec<_>>();
-    let mut sorted = all.clone();
-    sorted.sort();
-    assert_eq!(all, sorted);
-    //panic!("{:?}", all);
-}
-
- */
