@@ -1,7 +1,7 @@
 #![feature(const_raw_ptr_deref)]
+#![feature(generic_associated_types)]
 
 mod repolist;
-mod data;
 
 use rpmsync::Syncer;
 use rpmrepo::repomd::RepoMD;
@@ -13,103 +13,9 @@ use itertools::Itertools;
 use rayon::prelude::{ParallelBridge, ParallelIterator};
 use uuid::Uuid;
 use std::collections::HashMap;
-use data::*;
+use cache::*;
 use bindb::{Database, RwOps, ROps};
 
-
-pub struct Scanner {
-    db: Database
-}
-
-
-impl Scanner {
-    pub fn new() -> Result<Self> {
-        Ok(Scanner {
-            db: Database::open("data.mdbx")
-                .register::<Repo>()
-                .register::<Pkg>()
-                .register::<Advisory>()
-                .register::<Module>()
-                .register::<ModuleStream>()
-                .register::<PkgAdvisory>()
-                .register::<PkgRepo>()
-                .register::<AdvisoryRepo>()
-            ,
-        })
-    }
-    pub fn load_repolist(&mut self, rl: repolist::Repolist) -> Result<()> {
-        for (_p, prod) in rl.iter().flat_map(|p| &p.products) {
-            for (_label, cs) in &prod.content_sets {
-                let urls = cs.baseurl.iter().cloned();
-                let urls = urls.cartesian_product(cs.basearch.iter().map(Some).chain(None));
-                let urls = urls.cartesian_product(cs.releasever.iter().map(Some).chain(None));
-                let repos = urls.map(|((mut url, arch), rv)| {
-                    if let Some(arch) = arch {
-                        url = url.replace("$basearch", arch);
-                    }
-                    if let Some(rv) = rv {
-                        url = url.replace("$releasever", rv);
-                    }
-                    Repo {
-                        url,
-                        basearch: arch.map(ToString::to_string),
-                        releasever: rv.map(ToString::to_string),
-                        revision: None,
-                        id: Uuid::new_v4(),
-                    }
-                }).collect::<Vec<_>>();
-
-                self.db.in_wtx(|tx| {
-                    for mut r in repos {
-                        tx.put_by::<RepoUrl>(&mut r);
-                    }
-                });
-            }
-        }
-        Ok(())
-    }
-
-    pub fn sync(&mut self) -> Result<()> {
-        let repos = {
-            self.db.in_tx(|tx| {
-                println!("Package: {:?}", tx.scan::<Pkg>().count());
-                println!("Advs: {:?}", tx.scan::<Advisory>().count());
-                println!("Repos: {:?}", tx.scan::<Repo>().count());
-                println!("PKG-Advs: {:?}", tx.scan::<PkgAdvisory>().count());
-                println!("PKG-repos: {:?}", tx.scan::<PkgRepo>().count());
-                println!("adv-repos: {:?}", tx.scan::<AdvisoryRepo>().count());
-                println!("Modules: {:?}", tx.scan::<Module>().count());
-                println!("Streams: {:?}", tx.scan::<ModuleStream>().count());
-                for m in tx.scan::<ModuleStream>() {
-                    println!("streams: {:?}", m);
-                }
-                tx.scan::<Repo>().collect::<Vec<_>>()
-            })
-        };
-
-        repos.into_iter().par_bridge().for_each(|r| {
-            let mut db = self.db.clone();
-            match self.load_repo(&r) {
-                Ok(_) => {}
-                Err(e) => {
-                    println!("Could not sync repo : {:?} : {}", r.url, e);
-                    db.in_wtx(|w| w.delete::<Repo>(&r.id));
-                }
-            }
-        });
-
-        Ok(())
-    }
-
-    pub fn load_repo(&self, repo: &Repo) -> Result<()> {
-        let syncer = rpmsync::Syncer::new(rpmsync::default_certs(), 32, &format!("{}/", repo.url));
-        let mut scanner = RepoScanner {
-            repo: repo.clone(),
-            db: self.db.clone(),
-        };
-        Ok(syncer.sync_md(&mut scanner)?)
-    }
-}
 
 pub struct RepoScanner {
     repo: Repo,
@@ -120,7 +26,7 @@ impl rpmsync::MetadataTarget for RepoScanner {
     fn on_metadata(&mut self, syncer: &Syncer, md: RepoMD) {
         let old = self.db.in_tx(|tx| tx.get_by::<RepoUrl>(&self.repo.url));
 
-        if old.as_ref().and_then(|r| r.revision) < Some(md.revision as _) {
+        if old.as_ref().and_then(|r| r.revision.as_ref())  != Some(&md.revision) {
             println!("{:?} is outdated, syncing", self.repo.url);
 
             syncer.sync_packages_streaming(&mut PackageScanner { base: self, packages: vec![] }, &md);
@@ -299,6 +205,7 @@ impl rpmsync::ModuleTarget for ModuleScanner<'_> {
                         new.default = old.default
                     });
                 });
+
                 self.module_ids.insert(module.attrs.name.clone(), module.id);
             }
             Chunk::Defaults(_def) => {
@@ -327,12 +234,121 @@ impl rpmsync::ModuleTarget for ModuleScanner<'_> {
 }
 
 
+pub struct Reposcan {
+    db: Database,
+}
+
+impl Reposcan {
+    pub fn new() -> Result<Self> {
+        Ok(Reposcan {
+            db: Database::open("data.mdbx")
+                .register::<Repo>()
+                .register::<Pkg>()
+                .register::<Advisory>()
+                .register::<Module>()
+                .register::<ModuleStream>()
+                .register::<PkgAdvisory>()
+                .register::<PkgRepo>()
+                .register::<AdvisoryRepo>()
+            ,
+        })
+    }
+
+    pub fn load_repolist(&mut self, rl: repolist::Repolist) -> Result<()> {
+        for (_p, prod) in rl.iter().flat_map(|p| &p.products) {
+            for (_label, cs) in &prod.content_sets {
+                let urls = cs.baseurl.iter().cloned();
+                let urls = urls.cartesian_product(cs.basearch.iter().map(Some).chain(None));
+                let urls = urls.cartesian_product(cs.releasever.iter().map(Some).chain(None));
+
+                let repos = urls.map(|((mut url, arch), rv)| {
+                    if let Some(arch) = arch {
+                        url = url.replace("$basearch", arch);
+                    }
+                    if let Some(rv) = rv {
+                        url = url.replace("$releasever", rv);
+                    }
+                    Repo {
+                        url,
+                        label: _label.clone(),
+                        basearch: arch.map(ToString::to_string),
+                        releasever: rv.map(ToString::to_string),
+                        revision: None,
+                        id: Uuid::new_v4(),
+                    }
+                }).collect::<Vec<_>>();
+
+                println!("Adding {} repos for cs: {}", repos.len(), _label);
+                self.db.in_wtx(|tx| {
+                    for mut r in repos {
+                        if let Some(old) = tx.get_by::<RepoUrl>(&r.url) {
+                            r.revision = old.revision;
+                        }
+                        tx.put_by::<RepoUrl>(&mut r);
+                    }
+                });
+            }
+        }
+        Ok(())
+    }
+
+    pub fn sync(&mut self) -> Result<()> {
+        let repos = {
+            self.db.in_tx(|tx| {
+                println!("Package: {:?}", tx.scan::<Pkg>().count());
+                println!("Advs: {:?}", tx.scan::<Advisory>().count());
+                println!("Repos: {:?}", tx.scan::<Repo>().count());
+                println!("PKG-Advs: {:?}", tx.scan::<PkgAdvisory>().count());
+                println!("PKG-repos: {:?}", tx.scan::<PkgRepo>().count());
+                println!("adv-repos: {:?}", tx.scan::<AdvisoryRepo>().count());
+                println!("Modules: {:?}", tx.scan::<Module>().count());
+                println!("Streams: {:?}", tx.scan::<ModuleStream>().count());
+                tx.scan::<Repo>().collect::<Vec<_>>()
+            })
+        };
+
+        repos.into_iter().par_bridge().for_each(|r| {
+            match self.sync_repo(&r) {
+                Ok(_) => {}
+                Err(e) => {
+                    println!("Could not sync repo :{} :{}", r.url, e);
+                    self.db.in_wtx(|w| w.delete::<Repo>(&r.id));
+                }
+            }
+        });
+
+        Ok(())
+    }
+
+    pub fn sync_repo(&self, repo: &Repo) -> Result<()> {
+        let syncer = rpmsync::Syncer::new(rpmsync::default_certs(), 32, &format!("{}/", repo.url));
+        let mut scanner = RepoScanner {
+            repo: repo.clone(),
+            db: self.db.clone(),
+        };
+        if let Err(err) = syncer.sync_md(&mut scanner) {
+            use rpmsync::ErrorImpl;
+            match *err {
+                ErrorImpl::Ureq(rpmsync::ureq::Error::Status(code, _)) if code / 100 == 4 => {
+                    println!("{} not found, deleting repo", repo.url);
+                    self.db.clone().in_wtx(|tx| tx.delete::<Repo>(&repo.id));
+                    return Ok(());
+                }
+                other => {
+                    println!("Other MD error: {:?}", other);
+                    return Err(other.into());
+                }
+            }
+        }
+        return Ok(());
+    }
+}
+
 fn main() -> Result<()> {
     env_logger::init();
-    rayon::ThreadPoolBuilder::new().num_threads(32).build_global().unwrap();
-    let mut scanner = Scanner::new()?;
+    rayon::ThreadPoolBuilder::new().num_threads(4).build_global().unwrap();
+    let mut scanner = Reposcan::new()?;
     scanner.load_repolist(json::from_reader::<_, repolist::Repolist>(std::fs::File::open("./repolist.json")?)?)?;
     scanner.sync().unwrap();
-
     Ok(())
 }

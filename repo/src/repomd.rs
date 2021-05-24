@@ -3,7 +3,7 @@ use crate::prelude::*;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RepoMD {
-    pub revision: usize,
+    pub revision: String,
     pub data: Vec<RepoMDItem>,
 }
 

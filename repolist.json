@@ -3,6 +3,30 @@
     "products": {
       "Extra Packages for Enterprise Linux (EPEL)": {
         "content_sets": {
+          "centos-7": {
+            "name": "Centos",
+            "baseurl": [
+              "https://mirror.karneval.cz/pub/linux/centos/7/os/x86_64"
+            ],
+            "basearch": [
+              "x86_64"
+            ],
+            "releasever": ["7"]
+          },
+          "centos-8": {
+            "name": "Centos-8",
+            "baseurl": [
+              "https://mirror.karneval.cz/pub/linux/centos/$releasever/BaseOS/$basearch/os",
+              "https://mirror.karneval.cz/pub/linux/centos/$releasever/Devel/$basearch/os",
+              "https://mirror.karneval.cz/pub/linux/centos/$releasever/HighAvailability/$basearch/os",
+              "https://mirror.karneval.cz/pub/linux/centos/$releasever/PowerTools/$basearch/os",
+              "https://mirror.karneval.cz/pub/linux/centos/$releasever/centosplus/$basearch/os"
+            ],
+            "basearch": [
+              "x86_64", "aarch64"
+            ],
+            "releasever": ["8", "8-stream"]
+          },
           "epel": {
             "name": "Extra Packages for Enterprise Linux (RPMs)",
             "baseurl": [

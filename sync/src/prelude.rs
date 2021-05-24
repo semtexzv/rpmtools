@@ -9,6 +9,7 @@ use std::fmt::Debug;
 use ureq::{Response, ErrorKind};
 use retry::OperationResult;
 use retry::Error::Operation;
+use std::error::Error;
 
 #[derive(Debug, thiserror::Error)]
 pub enum ErrorImpl {
@@ -71,8 +72,7 @@ impl ErrorImpl {
     }
 }
 
-pub type Error = Box<ErrorImpl>;
-pub type Result<T, E = Error> = std::result::Result<T, E>;
+pub type Result<T, E = Box<ErrorImpl>> = std::result::Result<T, E>;
 
 pub fn backoff() -> impl Iterator<Item=Duration> {
     (4..=8).map(|t| {
@@ -101,13 +101,20 @@ pub fn retry_call<F: FnMut() -> Result<Response, ureq::Error>>(mut call: F) -> R
             Err(err) if err.kind() == ErrorKind::Dns => {
                 OperationResult::Retry(ErrorImpl::Ureq(err))
             }
-            Err(err) if err.kind() == ErrorKind::Io => {
-                OperationResult::Err(ErrorImpl::Ureq(err))
+            Err(ureq::Error::Transport(tp)) => {
+                if let Some(src) = tp.source() {
+                    if let Some(io) = src.downcast_ref::<std::io::Error>() {
+                        if io.kind() == std::io::ErrorKind::TimedOut {
+                            println!("Request timed out, retrying");
+                            return OperationResult::Retry(ErrorImpl::Ureq(ureq::Error::Transport(tp)));
+                        }
+                    }
+                }
+                return OperationResult::Err(ErrorImpl::Ureq(ureq::Error::Transport(tp)));
             }
             Err(err) => {
                 OperationResult::Err(ErrorImpl::Ureq(err))
             }
-        }
-
+        };
     }).map_err(unwrap_inner)
 }

@@ -1,18 +1,22 @@
-use bindb::{index, table, Table, FieldRef, Index};
+#![feature(generic_associated_types)]
+use bindb::{index, table, Table, Index};
 use serde::{Serialize, Deserialize};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Repo {
     pub id: Uuid,
+    pub label: String,
     pub url: String,
     pub basearch: Option<String>,
     pub releasever: Option<String>,
-    pub revision: Option<i32>,
+    pub revision: Option<String>,
 }
 
-table!(Repo => id(Uuid), RepoUrl);
-index!(RepoUrl, Repo => url(String));
+table!(Repo => id(Uuid), RepoUrl, RepoLabel);
+// We make non-unique index by including the primary key
+index!(RepoLabel, Repo, label: String, id: Uuid);
+index!(RepoUrl, Repo, url: String);
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct Nevra {
@@ -30,7 +34,7 @@ pub struct Pkg {
 }
 
 table!(Pkg => nevra(Nevra), PkgNevraIdx);
-index!(PkgNevraIdx, Pkg => nevra(Nevra));
+index!(PkgNevraIdx, Pkg, nevra: Nevra);
 
 #[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct PkgRepoId {
@@ -54,7 +58,7 @@ pub struct Advisory {
 }
 
 table!(Advisory => id(Uuid), AdvisoryNameIdx);
-index!(AdvisoryNameIdx, Advisory => name(String));
+index!(AdvisoryNameIdx, Advisory, name: String);
 
 #[derive(Debug, Clone, Copy, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct AdvisoryRepoId {
@@ -91,7 +95,7 @@ pub struct Module {
 }
 
 table!(Module => id(Uuid), ModuleAttrsIdx);
-index!(ModuleAttrsIdx, Module => attrs(ModuleAttrs));
+index!(ModuleAttrsIdx, Module, attrs: ModuleAttrs);
 
 #[derive(Debug, Clone, PartialOrd, PartialEq, Deserialize, Serialize)]
 pub struct ModuleStream {
@@ -109,4 +113,4 @@ pub struct StreamAttrs {
 }
 
 table!(ModuleStream => id(Uuid), StreamAttrsIdx);
-index!(StreamAttrsIdx, ModuleStream => attrs(StreamAttrs));
+index!(StreamAttrsIdx, ModuleStream, attrs : StreamAttrs);

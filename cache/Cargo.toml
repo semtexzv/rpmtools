@@ -1,0 +1,18 @@
+[package]
+name = "cache"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies.bindb]
+version = "0.0.3"
+path = "../bindb"
+
+[dependencies.rpmrepo]
+version = "0.0.3"
+path = "../repo"
+
+[dependencies.serde]
+version = "1"
+
+[dependencies]
+uuid = { version = "0.8.2", features = ["v4", "serde"] }

@@ -21,4 +21,10 @@ version = "0.17.1"
 default-features = false
 features = ["serialize"]
 
+[dependencies.nom]
+version = "6"
+
 [dependencies]
+
+[dev-dependencies]
+serde_json = "1.0.64"

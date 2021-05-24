@@ -2,7 +2,6 @@ use std::collections::BTreeMap;
 use serde_with::{serde_as,  OneOrMany};
 use serde::{Deserialize,};
 
-
 pub type Repolist = Vec<RepoEntry>;
 
 #[serde_as]

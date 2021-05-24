@@ -24,7 +24,6 @@ version = "0.5.1"
 
 
 [dependencies]
-field-ref = "0.2.1"
 impl-trait-for-tuples = "0.2.1"
 rayon = "1.5.0"
 heed = { version = "0.11.0", default-features= false, features = ["serde-json", "serde-bincode", "lmdb"] }

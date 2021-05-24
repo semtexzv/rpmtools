@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![feature(bindings_after_at)]
 
 mod prelude;
 mod magic;
@@ -14,6 +15,9 @@ use rpmrepo::{
 use retry::OperationResult;
 use rustls::ClientConfig;
 use std::time::Duration;
+
+pub use ureq;
+pub use prelude::ErrorImpl;
 
 const PACKAGE_PATH: &[&str] = &["package"];
 const UPDATE_PATH: &[&str] = &["update"];
@@ -53,7 +57,7 @@ impl Syncer {
         })?;
 
         let (reader, _format) = niffler::get_reader(Box::new(resp.into_reader()))?;
-        let md: RepoMD = xml::de::from_reader(BufReader::new(reader))?;
+        let md: RepoMD = xml::de::from_reader(BufReader::new(reader)).unwrap();
         target.on_metadata(self, md);
 
         Ok(())

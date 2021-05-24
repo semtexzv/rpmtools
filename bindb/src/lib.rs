@@ -1,12 +1,12 @@
 #![feature(associated_type_defaults)]
+#![feature(generic_associated_types)]
 #![feature(trace_macros)]
 
-pub use field_ref::{FieldRef, field_ref_of};
 use serde::{Serialize, de::DeserializeOwned};
 use std::path::Path;
 use std::collections::{HashMap};
 use heed::{RoTxn, RwTxn};
-use heed::types::{SerdeBincode, SerdeJson};
+use heed::types::{SerdeBincode, SerdeJson, CowSlice, DecodeIgnore};
 
 type KeyType<T> = SerdeBincode<<T as Table>::Key>;
 type ValType<T> = SerdeJson<T>;
@@ -22,17 +22,13 @@ pub trait Table: Serialize + DeserializeOwned {
     /// numeric values sorted naturally, and strings lexicographically.
     type Key: PartialOrd + Serialize + DeserializeOwned;
 
-    fn key() -> FieldRef<Self, Self::Key>;
+    fn get(&self) -> &Self::Key;
+    fn get_mut(&mut self) -> &mut Self::Key;
+
     type Indices: Indices<Self> = ();
 }
 
-pub trait Index {
-    type Table: Table;
-    /// Name of the table. This should be unique within database
-    const NAME: &'static str;
-    type Key: PartialOrd + Serialize + DeserializeOwned;
-    fn key() -> FieldRef<Self::Table, Self::Key>;
-}
+
 
 #[macro_export]
 macro_rules! table {
@@ -41,25 +37,38 @@ macro_rules! table {
             const NAME: &'static str = stringify!($name);
             type Key = $type;
             type Indices = ($($idx,)*);
-
-            fn key() -> FieldRef<$name, Self::Key> {
-                $crate::field_ref_of!($name $(=> $p)+)
+            fn get(&self) -> &Self::Key {
+                &self.$($p).*
+            }
+            fn get_mut(&mut self) -> &mut Self::Key {
+                &mut self.$($p).*
             }
         }
     };
 }
 
+pub trait Index {
+    type Table: Table;
+    /// Name of the table. This should be unique within database
+    const NAME: &'static str;
+    type Key: PartialOrd + Serialize + DeserializeOwned;
+    type KeyRef<'a>: PartialOrd + Serialize;
+
+    fn get<'a>(t: &'a Self::Table) -> Self::KeyRef<'a>;
+}
+
 #[macro_export]
 macro_rules! index {
-    ($name:ident, $src:ty $(=> $p:ident)+($type:ty)) => {
+    ($name:ident, $src:ty, $(unique,)? $($($p:ident).+ : $type:ty),+) => {
         pub struct $name {}
         impl Index for $name {
             type Table = $src;
-            const NAME: &'static str = concat!(stringify!($name) $(, "_", stringify!($p))*);
-            type Key = $type;
+            const NAME: &'static str = concat!(stringify!($name) $($(, "_", stringify!($p))*)+);
+            type Key = ( $($type),+ );
+            type KeyRef<'a> = ( $(&'a $type),+ );
 
-            fn key() -> FieldRef<$src, Self::Key> {
-                $crate::field_ref_of!($src $(=> $p)*)
+            fn get<'a>(t : &'a Self::Table) -> Self::KeyRef<'a> {
+                ( $( &t.$($p).+),+ )
             }
         }
     };
@@ -86,15 +95,15 @@ impl<T> Indices<T> for Tuple
     #[inline(always)]
     fn on_insert<'a>(db: &Database, tx: &mut RwTxn<'a, 'a>, t: &T) {
         for_tuples!( #(
-            let db_inner = db.index_db::<Tuple>();
-            db_inner.put(tx, Tuple::key().get(&t), Tuple::Table::key().get(&t)).unwrap();
+            let db_inner = db.index_db_ref::<Tuple>();
+            db_inner.put(tx, &Tuple::get(&t), Tuple::Table::get(&t)).unwrap();
         )*);
     }
 
     fn on_delete<'a>(db: &Database, tx: &mut RwTxn<'a, 'a, ()>, t: &T) {
         for_tuples!( #(
-            let inner_db = db.index_db::<Tuple>();
-            inner_db.delete(tx, Tuple::key().get(&t)).unwrap();
+            let inner_db = db.index_db_ref::<Tuple>();
+            inner_db.delete(tx, &Tuple::get(&t)).unwrap();
         )*);
     }
 }
@@ -122,7 +131,6 @@ impl Database {
                 .flag(heed::flags::Flags::MdbNoSubDir)
                 .open(f)
                 .unwrap();
-
 
             Database {
                 tree: db,
@@ -157,14 +165,14 @@ impl Database {
         return res;
     }
 
-    pub fn wtx(&mut self) -> Wtx<'_> {
+    pub fn wtx(&self) -> Wtx<'_> {
         Wtx {
             db: self,
             tx: self.tree.write_txn().unwrap(),
         }
     }
 
-    pub fn in_wtx<R, F: FnOnce(&mut Wtx) -> R>(&mut self, f: F) -> R {
+    pub fn in_wtx<R, F: FnOnce(&mut Wtx) -> R>(&self, f: F) -> R {
         let mut tx = self.wtx();
         let res = f(&mut tx);
         tx.commit();
@@ -174,19 +182,26 @@ impl Database {
 
 
 impl Database {
+    pub fn untyped_db<T : Table>(&self) -> heed::Database<DecodeIgnore, DecodeIgnore> {
+        self.dbs.get(T::NAME).expect("Table not registered").remap_types()
+    }
     pub fn typed_db<T: Table>(&self) -> heed::Database<SerdeBincode<T::Key>, SerdeJson<T>> {
         self.dbs.get(T::NAME).expect("Table not registered").remap_types()
     }
     pub fn index_db<I: Index>(&self) -> heed::Database<SerdeBincode<I::Key>, SerdeBincode<<I::Table as Table>::Key>> {
         self.dbs.get(I::NAME).expect("Index not registered").remap_types()
     }
+    pub fn index_db_ref<'a, I : Index>(&self) -> heed::Database<SerdeBincode<I::KeyRef<'a>>, SerdeBincode<<I::Table as Table>::Key>> {
+        self.dbs.get(I::NAME).expect("Index not registered").remap_types()
+    }
+
     pub fn generate_id(&self) -> uuid::Uuid {
         uuid::Uuid::new_v4()
     }
 }
 
 pub struct Iter<'a, T: Table> {
-    i: heed::RoRange<'a, KeyType<T>, ValType<T>>
+    i: heed::RoRange<'a, KeyType<T>, ValType<T>>,
 }
 
 impl<'a, T: Table + 'static> Iterator for Iter<'a, T> {
@@ -201,11 +216,12 @@ pub trait ROps {
     fn _ro_tx(&self) -> (&Database, &RoTxn);
 
     /// Index lookup
-    fn get_by<I: Index>(&self, ikey: &I::Key) -> Option<I::Table> {
+    fn get_by<'a, I: Index>(&self, ikey: I::KeyRef<'a>) -> Option<I::Table> {
         let (db, tx) = self._ro_tx();
-        let idb = db.index_db::<I>();
+        let idb = db.index_db_ref::<'a, I>();
         let tdb = db.typed_db::<I::Table>();
-        if let Some(pkey) = idb.get(tx, ikey).unwrap() {
+
+        if let Some(pkey) = idb.get(tx, &ikey).unwrap() {
             tdb.get(tx, &pkey).unwrap()
         } else {
             None
@@ -216,6 +232,7 @@ pub trait ROps {
     fn get<T: Table>(&self, k: &T::Key) -> Option<T> {
         let (db, tx) = self._ro_tx();
         let db = db.typed_db::<T>();
+
         let res = db.get(&tx, k).unwrap();
         res
     }
@@ -239,7 +256,7 @@ pub trait RwOps<'a>: ROps {
     fn put<T: Table>(&mut self, v: &T) {
         let (dd, mut tx) = self._rw_tx();
         let db = dd.typed_db::<T>();
-        db.put(&mut tx, &T::key().get(&v), &v).unwrap();
+        db.put(&mut tx, &T::get(&v), &v).unwrap();
         T::Indices::on_insert(&dd, &mut tx, &v);
     }
 
@@ -248,14 +265,15 @@ pub trait RwOps<'a>: ROps {
         where <<I as Index>::Table as Table>::Key: Clone
     {
         self.put_by_with::<I, _>(v, |old, v| {
-            *I::Table::key().get_mut(v) = I::Table::key().get(&old).clone();
+            *I::Table::get_mut(v) = I::Table::get(&old).clone();
         })
     }
+
     /// Overwrite old entry using an index as key,
     fn put_by_with<I, F>(&mut self, v: &mut I::Table, patch: F)
         where I: Index, F: FnOnce(&I::Table, &mut I::Table)
     {
-        if let Some(old) = self.get_by::<I>(&I::key().get(v)) {
+        if let Some(old) = self.get_by::<I>(I::get(v)) {
             patch(&old, v);
         }
         self.put(v)
@@ -340,7 +358,5 @@ fn test_simple() {
     assert_eq!(range.count(), 4);
 
     db.delete::<Item>(&0);
-    assert_eq!( db.scan::<Item>().count(), 3);
-
-
+    assert_eq!(db.scan::<Item>().count(), 3);
 }

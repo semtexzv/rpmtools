@@ -1,5 +1,5 @@
 [package]
-name = "reposcanner"
+name = "reposcan"
 version = "0.1.0"
 authors = ["Michal Hornicky <mhornick@redhat.com>"]
 edition = "2018"
@@ -29,6 +29,9 @@ path = "../repo"
 [dependencies.rpmsync]
 version = "0.0.3"
 path = "../sync"
+
+[dependencies.cache]
+path = "../cache"
 
 [dependencies]
 log = "0.4.14"
